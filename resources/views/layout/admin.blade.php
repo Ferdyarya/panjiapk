@@ -60,14 +60,14 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MASTER DATA</span>
                   </li>
-                  {{-- <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('masteranggota.index')}}" aria-expanded="false">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('mastercabang.index') }}" aria-expanded="false">
                       <span>
                         <i class="ti ti-article"></i>
                       </span>
-                      <span class="hide-menu">Daftar Pegawai</span>
+                      <span class="hide-menu">Cabang Daerah</span>
                     </a>
-                  </li> --}}
+                  </li>
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Data Table</span>
@@ -78,7 +78,7 @@
                         <span>
                             <i class="ti ti-mail"></i>
                         </span>
-                        <span class="hide-menu">Pembuatan Surat</span>
+                        <span class="hide-menu">Surat Pusat</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -89,20 +89,20 @@
                         <span class="hide-menu">Pembuatan Surat Disposisi</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('suratmasuk') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Checking</span>
+                    </a>
+                </li>
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('suratdisposisi.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-mail"></i>
                         </span>
-                        <span class="hide-menu">Surat masuk</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('suratdisposisi.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-mail"></i>
-                        </span>
-                        <span class="hide-menu">Surat Keluar</span>
+                        <span class="hide-menu">Surat Status</span>
                     </a>
                 </li> --}}
 
@@ -111,7 +111,7 @@
                     <span class="hide-menu">Report</span>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('laporandisposisi')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
@@ -119,11 +119,27 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('laporanpusat')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
-                      <span class="hide-menu">Lap Surat Keluar</span>
+                      <span class="hide-menu">Lap Surat Pusat</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('suratverif')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Sudah Terverifikasi</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('suratditolak')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Ditolak</span>
                     </a>
                   </li>
                 </ul>

@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Mastercabang;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Suratpusat extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kodesurat','asalsurat','tujuan_surat','tentangsurat','filesurat','klasifikasi'
+        'kodesurat','asalsurat','tujuan_surat','tentangsurat','filesurat','klasifikasi','id_mastercabang','tanggal'
     ];
-    // public function masterbuku()
-    // {
-    //     return $this->hasOne(Masterbuku::class, 'id', 'id_buku');
-    // }
+    public function mastercabang()
+    {
+        return $this->hasOne(Mastercabang::class, 'id', 'id_mastercabang');
+    }
 }

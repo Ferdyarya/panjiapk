@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nmrsurat')->nullable();
             $table->string('tglterima');
-            $table->string('asal');
             $table->string('sifat');
             $table->string('perihal');
             $table->string('diteruskan');
             $table->string('catatan');
             $table->string('disposisi');
+            $table->string('id_mastercabang');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

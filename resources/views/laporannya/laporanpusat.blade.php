@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Laporan Data Surat Disposisi</h3>
+                                <h3 class="m-0">Laporan Data Surat Pusat</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Laporan Data Surat Disposisi</li>
+                                    <li class="breadcrumb-item active">Laporan Data Surat Pusat</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporandisposisi') }}" method="GET" class="row">
+                        <form action="{{ route('laporanpusat') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporandisposisipdf', $filter) }}"
+                                    <a href="{{ route('laporanpusatpdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporandisposisipdf', 'all') }}"
+                                    <a href="{{ route('laporanpusatpdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>
@@ -70,30 +70,38 @@
                                 <tr>
                                     <th class="px-6 py-2">No</th>
                                     <th class="px-6 py-2">Nomor Surat</th>
-                                    <th class="px-6 py-2">Tanggal Terima</th>
+                                    <th class="px-6 py-2">Tanggal</th>
                                     <th class="px-6 py-2">Asal Surat</th>
-                                    <th class="px-6 py-2">Sifat Surat</th>
-                                    <th class="px-6 py-2">Perihal Surat</th>
-                                    <th class="px-6 py-2">Diteruskan Kepada</th>
-                                    <th class="px-6 py-2">Catatan</th>
-                                    <th class="px-6 py-2">Disposisi</th>
+                                    <th class="px-6 py-2">Tujuan Surat</th>
+                                    <th class="px-6 py-2">Tentang Surat</th>
+                                    <th class="px-6 py-2">Klasifikasi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporandisposisi as $index => $item)
+                                @foreach ($laporanpusat as $index => $item)
                                     <tr>
-                                        <th class="px-6 py-2">{{ $index + $laporandisposisi->firstItem() }}</th>
-                                        <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
-                                        <td class="px-6 py-2">{{ $item->tglterima }}</td>
-                                        <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
-                                        <td class="px-6 py-2">{{ $item->sifat }}</td>
-                                        <td class="px-6 py-2">{{ $item->perihal }}</td>
-                                        <td class="px-6 py-2">{{ $item->diteruskan }}</td>
-                                        <td class="px-6 py-2">{{ $item->catatan }}</td>
-                                        <td class="px-6 py-2">{{ $item->disposisi }}</td>
+                                        <th class="px-6 py-2">{{ $index + $laporanpusat->firstItem() }}</th>
+                                        <td class="px-6 py-2">
+                                            {{ $item->kodesurat }}
+                                        </td>
+                                        <td class="px-6 py-2">
+                                            {{ $item->tanggal }}
+                                        </td>
+                                        <td class="px-6 py-2">
+                                            {{ $item->mastercabang->cabang }}
+                                        </td>
+                                        <td class="px-6 py-2">
+                                            {{ $item->tujuan_surat }}
+                                        </td>
+                                        <td class="px-6 py-2">
+                                            {{ $item->tentangsurat }}
+                                        </td>
+                                        <td class="px-6 py-2">
+                                            {{ $item->klasifikasi }}
+                                        </td>
                                         {{-- <td>
                                       <a href="{{ route('rusak.edit', $item->id)}}" class="btn btn-primary">
                                           Edit
@@ -108,7 +116,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporandisposisi->links() }}
+                        {{ $laporanpusat->links() }}
                     </div>
                 </div>
             </div>

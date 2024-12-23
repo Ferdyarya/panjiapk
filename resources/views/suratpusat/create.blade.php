@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
+<!-- Select2 CSS -->
+{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+<!-- Or for RTL support -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
 <title>Surat Pusat</title>
 
 
@@ -32,12 +40,21 @@
                                           placeholder="Masukan File Surat">
                                   </div>
                                   <div class="form-group">
-                                      <label for="asalsurat">Asal Surat</label>
-                                      <input  type="text" name="asalsurat" class="form-control @error('asalsurat') is-invalid @enderror" id="asalsurat" placeholder="Masukkan asalsurat" value="{{ old('asalsurat') }}" required>
-                                      @error('asalsurat')
-                                          <div class="invalid-feedback">{{ $message }}</div>
-                                      @enderror
-                                  </div>
+                                    <label for="tanggal">Tanggal</label>
+                                    <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" value="{{ old('tanggal') }}" required>
+                                    @error('tanggal')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                  <div class="form-group mb-3">
+                                    <label for="id_mastercabang">Asal Surat</label>
+                                    <select class="form-select" name="id_mastercabang" id="judulbuku" style="border-radius: 8px;">
+                                        <option></option>
+                                        @foreach ($mastercabang as $item)
+                                            <option value="{{ $item->id }}">{{ $item->cabang }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                   <div class="form-group">
                                       <label for="tujuan_surat">Tujuan Surat</label>
                                       <input  type="text" name="tujuan_surat" class="form-control @error('tujuan_surat') is-invalid @enderror" id="tujuan_surat" placeholder="Masukkan Tujuan Surat" value="{{ old('tujuan_surat') }}" required>
@@ -100,15 +117,27 @@
 
 
 
-<!-- Optional JavaScript -->
+<!-- Optional JavaScript Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV7YyybLOtiN6bX3h+rXxy5lVX" crossorigin="anonymous">
 </script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+pyRy4IhBQvqo8Rx2ZR1c8KRjuva5V7x8GA" crossorigin="anonymous">
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+$( '#judulbuku' ).select2( {
+theme: "bootstrap-5",
+width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+placeholder: $( this ).data( 'placeholder' ),
+} );
 </script>
 @endsection

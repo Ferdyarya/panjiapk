@@ -96,6 +96,7 @@
                 <th class="px-6 py-2">Diteruskan Kepada</th>
                 <th class="px-6 py-2">Catatan</th>
                 <th class="px-6 py-2">Disposisi</th>
+                <th class="px-6 py-2">status</th>
             </tr>
         </thead>
         <tbody>
@@ -103,7 +104,7 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($laporandisposisi as $item)
+            @foreach ($laporansuratdisposisi as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
@@ -114,6 +115,14 @@
                     <td class="px-6 py-2">{{ $item->diteruskan }}</td>
                     <td class="px-6 py-2">{{ $item->catatan }}</td>
                     <td class="px-6 py-2">{{ $item->disposisi }}</td>
+                    <td class="px-6 py-2">
+                        <!-- Display status as a badge if it's already set -->
+                        @if($item->status == 'Terverifikasi')
+                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                        @elseif($item->status == 'Ditolak')
+                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>

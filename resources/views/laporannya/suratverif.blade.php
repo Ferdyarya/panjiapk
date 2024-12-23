@@ -16,12 +16,12 @@
             <div class="content-header">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Surat Disposisi</h1>
+                            <h1 class="m-0">Laporan Data Surat Disposisi Terverifikasi</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Data Surat Disposisi</li>
+                                <li class="breadcrumb-item active">Laporan Data Surat Disposisi Terverifikasi</li>
                             </ol>
                         </div>
                     </div>
@@ -31,18 +31,20 @@
                 {{-- search --}}
                 <div class="row g-3 align-items-center mb-4">
                     <div class="col-auto">
-                        <form action="suratdisposisi" method="GET">
+                        <form action="terverifikasipencariannomorsurat" method="GET">
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                         </form>
                     </div>
-                    {{-- Button Export PDF --}}
-                    <div class="col-auto">
-                        <a href="{{ route('suratdisposisi.create')}}" class="btn btn-success">
-                            Tambah Data
-                        </a>
-                    </div>
+
                 </div>
                 <div>
+                    <div class="container">
+                        <form action="{{ route('suratverif') }}" method="GET" class="row">
+                            <div class="col-md-2 pt-4">
+                                <a href="{{ route('laporansuratverifpdf') }}" class="btn btn-danger btn-block mb-3">Export PDF</a>
+                            </div>
+                        </form>
+                    </div>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -50,17 +52,15 @@
                                 <th class="px-6 py-2">Nomor Surat</th>
                                 <th class="px-6 py-2">Tanggal Terima</th>
                                 <th class="px-6 py-2">Asal Surat</th>
-                                <th class="px-6 py-2">Sifat Surat</th>
                                 <th class="px-6 py-2">Perihal Surat</th>
-                                <th class="px-6 py-2">Diteruskan Kepada</th>
-                                <th class="px-6 py-2">Catatan</th>
                                 <th class="px-6 py-2">Disposisi</th>
-                                <th class="px-6 py-2">Action</th>
+                                <th class="px-6 py-2">Status</th>
+                                {{-- <th class="px-6 py-2">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                            $no=1;
+                            $no = 1;
                             @endphp
                             @foreach ($suratdisposisi as $index => $item)
                             <tr>
@@ -68,18 +68,14 @@
                                 <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
                                 <td class="px-6 py-2">{{ $item->tglterima }}</td>
                                 <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
-                                <td class="px-6 py-2">{{ $item->sifat }}</td>
                                 <td class="px-6 py-2">{{ $item->perihal }}</td>
-                                <td class="px-6 py-2">{{ $item->diteruskan }}</td>
-                                <td class="px-6 py-2">{{ $item->catatan }}</td>
                                 <td class="px-6 py-2">{{ $item->disposisi }}</td>
                                 <td class="px-6 py-2">
-                                    <a href="{{ route('suratdisposisi.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <form action="{{ route('suratdisposisi.destroy', $item->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
+                                    @if($item->status == 'Terverifikasi')
+                                        <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                                    @elseif($item->status == 'Ditolak')
+                                        <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

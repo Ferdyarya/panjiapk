@@ -116,7 +116,7 @@
         </tbody>
     </table>
     <div class="date-container">
-        Banjarmasin, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
+        Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
     <p class="signature">(Supervisor)</p>
 </body>

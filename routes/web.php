@@ -1,30 +1,15 @@
 <?php
 
-use App\Models\Rusak;
-use App\Models\Reqbuku;
-use App\Models\Masterrak;
-use App\Models\Masterbuku;
-use App\Models\Peminjaman;
 use App\Models\Masteranggota;
-use App\Models\Masterkategori;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RusakController;
-use App\Http\Controllers\ReqbukuController;
 
 // New
-use App\Http\Controllers\AnggaranController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MasterrakController;
-use App\Http\Controllers\MasterbukuController;
-use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\PemusnahanController;
 use App\Http\Controllers\SuratpusatController;
-use App\Http\Controllers\MasterebookController;
+use App\Http\Controllers\MastercabangController;
 use App\Http\Controllers\MasteranggotaController;
-use App\Http\Controllers\MasterkategoriController;
 use App\Http\Controllers\SuratdisposisiController;
-use App\Http\Controllers\PeminjamanebookController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,11 +35,20 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Master Data
-    Route::resource('masterebook', MasterebookController::class);
+    // Route::resource('masterebook', MasterebookController::class);
+    Route::resource('mastercabang', MastercabangController::class);
 
     // Data Tables Surat
     Route::resource('suratpusat', SuratpusatController::class);
     Route::resource('suratdisposisi', SuratdisposisiController::class);
+    Route::get('suratmasuk', [SuratdisposisiController::class, 'suratMasuk'])->name('suratmasuk');
+
+    // Route untuk verifikasi surat disposisi
+   // Route to update the status of a surat
+    // Route::put('suratmasuk/updateStatus/{id}', [SuratDisposisiController::class, 'updateStatus'])->name('suratmasuk.updateStatus');
+    Route::put('/suratdisposisi/{id}/status', [SuratDisposisiController::class, 'updateStatus'])->name('updateStatus');
+
+
 
 
 
@@ -68,6 +62,7 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
 
 // Data Tables Report Report
 Route::get('suratdisposisipdf', [SuratdisposisiController::class, 'suratdisposisipdf'])->name('suratdisposisipdf');
+Route::get('laporanpusatpdf', [SuratpusatController::class, 'laporanpusatpdf'])->name('laporanpusatpdf');
 
 // Rute untuk menampilkan laporan anggota
 Route::get('laporannya/laporananggota', [MasteranggotaController::class, 'perkelas'])->name('laporananggota');
@@ -76,15 +71,35 @@ Route::get('laporannya/laporananggota', [MasteranggotaController::class, 'perkel
 // Route::get('/perkelaspdf', [MasteranggotaController::class, 'cetakPerkelasPdf'])->name('laporananggotapdf');
 
 // Recap Laporan Tampilan
-Route::get('laporannya/laporanpeminjaman', [SuratdisposisiController::class, 'cetakpertanggalpengembalian'])->name('laporanpeminjaman');
+Route::get('laporannya/laporandisposisi', [SuratdisposisiController::class, 'cetakpertanggalpengembalian'])->name('laporandisposisi');
+Route::get('laporannya/laporanpusat', [SuratpusatController::class, 'cetakpertanggalpengembalian'])->name('laporanpusat');
 
 // Filtering
-Route::get('laporanpeminjaman', [SuratdisposisiController::class, 'filterdatebarang'])->name('laporanpeminjaman');
+Route::get('laporandisposisi', [SuratdisposisiController::class, 'filterdatebarang'])->name('laporandisposisi');
+Route::get('laporanpusat', [SuratpusatController::class, 'filterdatebarang'])->name('laporanpusat');
 
 
 // Filter Laporan
-Route::get('laporandendapdf/filter={filter}', [SuratdisposisiController::class, 'laporandendapdf'])->name('laporandendapdf');
+Route::get('laporandisposisipdf/filter={filter}', [SuratdisposisiController::class, 'laporandisposisipdf'])->name('laporandisposisipdf');
+Route::get('laporanpusatpdf/filter={filter}', [SuratpusatController::class, 'laporanpusatpdf'])->name('laporanpusatpdf');
 
+
+// Disposisi Verifikasi
+// Route to show verified surat data
+Route::get('suratverif', [SuratDisposisiController::class, 'tampilanterverifikasi'])->name('suratverif');
+// Route for searching surat
+Route::get('suratverif/search', [SuratDisposisiController::class, 'terverifikasipencariannomorsurat'])->name('suratverif.search');
+// Route to generate PDF for printing
+Route::get('suratverif/pdf', [SuratDisposisiController::class, 'terverifikasipdf'])->name('laporansuratverifpdf');
+
+
+// Disposisi Verifikasi
+// Route to show verified surat data
+Route::get('suratditolak', [SuratDisposisiController::class, 'tampilanditolak'])->name('suratditolak');
+// Route for searching surat
+Route::get('suratditolak/search', [SuratDisposisiController::class, 'ditolakpencariannomorsurat'])->name('suratditolak.search');
+// Route to generate PDF for printing
+Route::get('suratditolak/pdf', [SuratDisposisiController::class, 'ditolakpdf'])->name('laporansuratditolakpdf');
 
 });
 

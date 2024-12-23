@@ -16,12 +16,12 @@
             <div class="content-header">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Surat Disposisi</h1>
+                            <h1 class="m-0">Data Surat Masuk</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Data Surat Disposisi</li>
+                                <li class="breadcrumb-item active">Data Surat Masuk</li>
                             </ol>
                         </div>
                     </div>
@@ -36,11 +36,11 @@
                         </form>
                     </div>
                     {{-- Button Export PDF --}}
-                    <div class="col-auto">
+                    {{-- <div class="col-auto">
                         <a href="{{ route('suratdisposisi.create')}}" class="btn btn-success">
                             Tambah Data
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div>
                     <table class="table table-hover">
@@ -50,17 +50,15 @@
                                 <th class="px-6 py-2">Nomor Surat</th>
                                 <th class="px-6 py-2">Tanggal Terima</th>
                                 <th class="px-6 py-2">Asal Surat</th>
-                                <th class="px-6 py-2">Sifat Surat</th>
                                 <th class="px-6 py-2">Perihal Surat</th>
-                                <th class="px-6 py-2">Diteruskan Kepada</th>
-                                <th class="px-6 py-2">Catatan</th>
                                 <th class="px-6 py-2">Disposisi</th>
-                                <th class="px-6 py-2">Action</th>
+                                <th class="px-6 py-2">Status</th>
+                                {{-- <th class="px-6 py-2">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                            $no=1;
+                            $no = 1;
                             @endphp
                             @foreach ($suratdisposisi as $index => $item)
                             <tr>
@@ -68,18 +66,27 @@
                                 <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
                                 <td class="px-6 py-2">{{ $item->tglterima }}</td>
                                 <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
-                                <td class="px-6 py-2">{{ $item->sifat }}</td>
                                 <td class="px-6 py-2">{{ $item->perihal }}</td>
-                                <td class="px-6 py-2">{{ $item->diteruskan }}</td>
-                                <td class="px-6 py-2">{{ $item->catatan }}</td>
                                 <td class="px-6 py-2">{{ $item->disposisi }}</td>
                                 <td class="px-6 py-2">
-                                    <a href="{{ route('suratdisposisi.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <form action="{{ route('suratdisposisi.destroy', $item->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
+                                    <!-- Display status as a badge if it's already set -->
+                                    @if($item->status == 'Terverifikasi')
+                                        <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                                    @elseif($item->status == 'Ditolak')
+                                        <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                    @else
+                                        <!-- Form for selecting status if it's not set to 'Terverifikasi' or 'Ditolak' -->
+                                        <form action="{{ route('updateStatus', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT') <!-- Use PUT method to update the record -->
+                                            <select name="status" class="form-control form-control-sm">
+                                                <option value="Terverifikasi" {{ $item->status == 'Terverifikasi' ? 'selected' : '' }} style="background-color: #28a745; color: white;">Verifikasi</option> <!-- Green for Verifikasi -->
+                                                <option value="Ditolak" {{ $item->status == 'Ditolak' ? 'selected' : '' }} style="background-color: #dc3545; color: white;">Tolak</option> <!-- Red for Ditolak -->
+                                            </select>
+                                            <!-- Submit button to save changes -->
+                                            <button type="submit" class="btn btn-primary btn-sm mt-2">Update Status</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

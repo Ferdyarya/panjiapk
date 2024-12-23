@@ -77,7 +77,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Surat Disposisi</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Pusat</h5>
     </center>
 
 
@@ -89,13 +89,11 @@
             <tr>
                 <th class="px-6 py-2">No</th>
                 <th class="px-6 py-2">Nomor Surat</th>
-                <th class="px-6 py-2">Tanggal Terima</th>
+                <th class="px-6 py-2">Tanggal</th>
                 <th class="px-6 py-2">Asal Surat</th>
-                <th class="px-6 py-2">Sifat Surat</th>
-                <th class="px-6 py-2">Perihal Surat</th>
-                <th class="px-6 py-2">Diteruskan Kepada</th>
-                <th class="px-6 py-2">Catatan</th>
-                <th class="px-6 py-2">Disposisi</th>
+                <th class="px-6 py-2">Tujuan Surat</th>
+                <th class="px-6 py-2">Tentang Surat</th>
+                <th class="px-6 py-2">Klasifikasi</th>
             </tr>
         </thead>
         <tbody>
@@ -103,17 +101,27 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($laporandisposisi as $item)
+            @foreach ($laporanpusat as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
-                    <td class="px-6 py-2">{{ $item->tglterima }}</td>
-                    <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
-                    <td class="px-6 py-2">{{ $item->sifat }}</td>
-                    <td class="px-6 py-2">{{ $item->perihal }}</td>
-                    <td class="px-6 py-2">{{ $item->diteruskan }}</td>
-                    <td class="px-6 py-2">{{ $item->catatan }}</td>
-                    <td class="px-6 py-2">{{ $item->disposisi }}</td>
+                    <td class="px-6 py-2">
+                        {{ $item->kodesurat }}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{ $item->tanggal }}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{ $item->mastercabang->cabang }}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{ $item->tujuan_surat }}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{ $item->tentangsurat }}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{ $item->klasifikasi }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
