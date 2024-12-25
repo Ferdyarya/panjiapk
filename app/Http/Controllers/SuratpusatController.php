@@ -50,7 +50,7 @@ class SuratpusatController extends Controller
     $kodeSurat = $this->generateKodeSurat();
 
     // Persiapkan data untuk disimpan
-    $data = $request->only(['id_mastercabang', 'tujuan_surat', 'tentangsurat', 'filesurat', 'klasifikasi']);
+    $data = $request->only(['id_mastercabang', 'tujuan_surat', 'tentangsurat', 'filesurat', 'klasifikasi','tanggal']);
     $data['kodesurat'] = $kodeSurat;
 
     // Menangani file surat jika ada

@@ -50,7 +50,7 @@ class SuratdisposisiController extends Controller
     $nmrsurat = $this->generatenmrsurat();
 
     // Persiapkan data untuk disimpan
-    $data = $request->only(['id_mastercabang', 'tglterima', 'sifat', 'perihal', 'diteruskan', 'catatan', 'disposisi']);
+    $data = $request->only(['id_mastercabang', 'tglterima', 'sifat', 'perihal', 'diteruskan', 'catatan', 'disposisi',]);
     $data['nmrsurat'] = $nmrsurat; // Menambahkan kode surat yang sudah digenerate
 
     // Jika ada file surat, simpan file tersebut dan tambahkan ke data
