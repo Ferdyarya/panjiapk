@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suratpusats', function (Blueprint $table) {
+        Schema::create('izinkunjungans', function (Blueprint $table) {
             $table->id();
             $table->string('kodesurat')->nullable();
-            $table->string('tujuan_surat');
             $table->string('tanggal');
-            $table->string('tentangsurat');
-            $table->string('filesurat');
-            $table->string('klasifikasi');
-            $table->string('id_mastercabang');
+            $table->string('tujuan_surat');
             $table->string('id_masterpegawai');
+            $table->string('id_mastercabang');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suratpusats');
+        Schema::dropIfExists('izinkunjungans');
     }
 };

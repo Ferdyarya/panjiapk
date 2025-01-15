@@ -16,12 +16,12 @@
             <div class="content-header">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Surat Disposisi</h1>
+                            <h1 class="m-0">Data Surat Keluar</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Data Surat Disposisi</li>
+                                <li class="breadcrumb-item active">Data Surat Keluar</li>
                             </ol>
                         </div>
                     </div>
@@ -48,6 +48,7 @@
                             <tr>
                                 <th class="px-6 py-2">No</th>
                                 <th class="px-6 py-2">Nomor Surat</th>
+                                <th class="px-6 py-2">Peruntukan</th>
                                 <th class="px-6 py-2">Tanggal Terima</th>
                                 <th class="px-6 py-2">Asal Surat</th>
                                 <th class="px-6 py-2">Sifat Surat</th>
@@ -55,7 +56,9 @@
                                 <th class="px-6 py-2">Diteruskan Kepada</th>
                                 <th class="px-6 py-2">Catatan</th>
                                 <th class="px-6 py-2">Disposisi</th>
+                                @if (Auth::user()->hakakses('admin'))
                                 <th class="px-6 py-2">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -66,6 +69,7 @@
                             <tr>
                                 <th class="px-6 py-2">{{ $index + $suratdisposisi->firstItem() }}</th>
                                 <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
+                                <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
                                 <td class="px-6 py-2">{{ $item->tglterima }}</td>
                                 <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
                                 <td class="px-6 py-2">{{ $item->sifat }}</td>
@@ -73,6 +77,7 @@
                                 <td class="px-6 py-2">{{ $item->diteruskan }}</td>
                                 <td class="px-6 py-2">{{ $item->catatan }}</td>
                                 <td class="px-6 py-2">{{ $item->disposisi }}</td>
+                                @if (Auth::user()->hakakses('admin'))
                                 <td class="px-6 py-2">
                                     <a href="{{ route('suratdisposisi.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('suratdisposisi.destroy', $item->id) }}" method="POST" style="display:inline;">
@@ -81,6 +86,7 @@
                                         <button type="submit" class="btn btn-danger">Hapus</button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

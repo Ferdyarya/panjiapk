@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Laporan Data Surat Pusat</h3>
+                                <h3 class="m-0">Laporan Data Surat Masuk</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Laporan Data Surat Pusat</li>
+                                    <li class="breadcrumb-item active">Laporan Data Surat Masuk</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -70,6 +70,7 @@
                                 <tr>
                                     <th class="px-6 py-2">No</th>
                                     <th class="px-6 py-2">Nomor Surat</th>
+                                    <th class="px-6 py-2">Peruntukan</th>
                                     <th class="px-6 py-2">Tanggal</th>
                                     <th class="px-6 py-2">Asal Surat</th>
                                     <th class="px-6 py-2">Tujuan Surat</th>
@@ -87,6 +88,7 @@
                                         <td class="px-6 py-2">
                                             {{ $item->kodesurat }}
                                         </td>
+                                        <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
                                         <td class="px-6 py-2">
                                             {{ $item->tanggal }}
                                         </td>

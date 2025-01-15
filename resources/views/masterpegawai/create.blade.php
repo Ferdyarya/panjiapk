@@ -2,7 +2,8 @@
 
 @section('content')
 
-<meta charset="utf-8" />
+<head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Bootstrap CSS -->
@@ -17,30 +18,32 @@
     <!-- Or for RTL support -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-<title>Master Data Anggota</title>
+</head>
+
+<title>Data Table</title>
 
 
 <body>
     <div class="container-fluid">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
-              <h1 class="text-center mb-4">Tambah Data Anggota</h1>
+              <h1 class="text-center mb-4">Tambah Data Daftar Pegawai</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                  <form method="POST" action="{{ route('masteranggota.store') }}" enctype="multipart/form-data">
+                                  <form method="POST" action="{{ route('masterpegawai.store') }}" enctype="multipart/form-data">
                                       @csrf
-                                      <div class="form-group">
-                                          <label for="nama">Nama</label>
-                                          <input type="text" name="namaanggota" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                              aria-describedby="emailHelp" placeholder="Masukan Nama" value="{{ old('nama') }}" required>
+                                    <div class="form-group">
+                                          <label for="nama">Nama Pegawai</label>
+                                          <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                                              aria-describedby="namaHelp" placeholder="Masukan Nama" value="{{ old('nama') }}" required>
                                           @error('nama')
                                               <div class="invalid-feedback">{{ $message }}</div>
                                           @enderror
-                                      </div>
-                                      <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
                                           <label for="email">Email</label>
                                           <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                               aria-describedby="emailHelp" placeholder="Masukan Email" value="{{ old('email') }}" required>
@@ -57,10 +60,10 @@
                                           @enderror
                                       </div>
                                       <div class="form-group">
-                                          <label for="kelas">Kelas</label>
-                                          <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" id="kelas"
-                                              aria-describedby="emailHelp" placeholder="Masukan kelas" value="{{ old('kelas') }}" required>
-                                          @error('kelas')
+                                          <label for="jabatan">Jabatan</label>
+                                          <input type="text" name="jabatan" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan"
+                                              aria-describedby="emailHelp" placeholder="Masukan jabatan" value="{{ old('jabatan') }}" required>
+                                          @error('jabatan')
                                               <div class="invalid-feedback">{{ $message }}</div>
                                           @enderror
                                       </div>
@@ -78,14 +81,8 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                      <div class="form-group">
-                                          <label for="tgl_lahir">Tanggal Lahir</label>
-                                          <input type="date" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir"
-                                              aria-describedby="emailHelp" placeholder="Masukan Kategori" value="{{ old('tgl_lahir') }}" required>
-                                          @error('tgl_lahir')
-                                              <div class="invalid-feedback">{{ $message }}</div>
-                                          @enderror
-                                      </div>
+                                      
+
                                       <button type="submit" class="btn btn-primary">Submit</button>
                                   </form>
                               </div>
@@ -98,13 +95,8 @@
       </div>
 </body>
 
-<script>
-    $( '#userpilih' ).select2( {
-    theme: "bootstrap-5",
-    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-    placeholder: $( this ).data( 'placeholder' ),
-} );
-</script>
+
+
 
 
 
@@ -143,4 +135,11 @@
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <!-- Select2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $( '#judulbuku' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+} );
+</script>
 @endsection

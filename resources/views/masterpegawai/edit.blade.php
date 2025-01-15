@@ -27,11 +27,11 @@
                                   <form method="POST" action="{{ route('masteranggota.update', $item->id) }}" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
-                                      <div class="form-group" style="border-radius: 8px;">
-                                        <label for="id_anggota">Nama Anggota</label>
-                                        <input type="text" class="form-control" id="id_anggota" value="{{ Auth::user()->name }}" readonly>
-                                        <input type="hidden" value="{{ Auth::user()->id }}" name="id_anggota">
-                                    </div>
+                                      <div class="form-group">
+                                        <label for="nama">Nama Pegawai</label>
+                                        <input value="{{ $item->nama }}" type="nama" name="nama" class="form-control"
+                                            id="exampleInputPassword1" placeholder="Masukan Nama" required>
+                                     </div>
                                       <div class="form-group">
                                         <label for="email">Email</label>
                                         <input value="{{ $item->email }}" type="email" name="email" class="form-control"
@@ -43,9 +43,9 @@
                                             id="exampleInputPassword1" placeholder="Masukan Telpon" required>
                                      </div>
                                       <div class="form-group">
-                                        <label for="kelas">Kelas</label>
-                                        <input value="{{ $item->kelas }}" type="kelas" name="kelas" class="form-control"
-                                            id="exampleInputPassword1" placeholder="Masukan kelas" required>
+                                        <label for="jabatan">Jabatan</label>
+                                        <input value="{{ $item->jabatan }}" type="jabatan" name="jabatan" class="form-control"
+                                            id="exampleInputPassword1" placeholder="Masukan jabatan" required>
                                      </div>
                                      <div class="form-group">
                                         <label for="jeniskelamin">Jenis Kelamin</label><br>
@@ -54,11 +54,6 @@
                                         <input type="radio" name="jeniskelamin" value="perempuan" id="perempuan" {{ $item->jeniskelamin == 'perempuan' ? 'checked' : '' }}>
                                         <label for="perempuan">Perempuan</label><br>
                                     </div>
-                                      <div class="form-group">
-                                        <label for="tgl_lahir">Tanggal Lahir</label>
-                                        <input value="{{ $item->tgl_lahir }}" type="date" name="tgl_lahir" class="form-control"
-                                            id="exampleInputPassword1" placeholder="Masukan tgl_lahir" required>
-                                     </div>
                                       <button type="submit" class="btn btn-primary">Submit</button>
                                   </form>
                               </div>

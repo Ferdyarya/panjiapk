@@ -77,7 +77,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Surat Disposisi</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Keluar</h5>
     </center>
 
 
@@ -89,6 +89,7 @@
             <tr>
                 <th class="px-6 py-2">No</th>
                 <th class="px-6 py-2">Nomor Surat</th>
+                <th class="px-6 py-2">Peruntukan</th>
                 <th class="px-6 py-2">Tanggal Terima</th>
                 <th class="px-6 py-2">Asal Surat</th>
                 <th class="px-6 py-2">Sifat Surat</th>
@@ -107,6 +108,7 @@
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
+                    <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
                     <td class="px-6 py-2">{{ $item->tglterima }}</td>
                     <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
                     <td class="px-6 py-2">{{ $item->sifat }}</td>
@@ -121,7 +123,7 @@
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">(Petugas)</p>
+    <p class="signature">{{ $item->masterpegawai->nama }}</p>
 </body>
 
 </html>

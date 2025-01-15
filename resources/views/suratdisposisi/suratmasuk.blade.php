@@ -76,6 +76,7 @@
                                         <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
                                     @else
                                         <!-- Form for selecting status if it's not set to 'Terverifikasi' or 'Ditolak' -->
+                                        @if (Auth::user()->hakakses('pimpinan'))
                                         <form action="{{ route('updateStatus', $item->id) }}" method="POST">
                                             @csrf
                                             @method('PUT') <!-- Use PUT method to update the record -->
@@ -86,6 +87,7 @@
                                             <!-- Submit button to save changes -->
                                             <button type="submit" class="btn btn-primary btn-sm mt-2">Update Status</button>
                                         </form>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>

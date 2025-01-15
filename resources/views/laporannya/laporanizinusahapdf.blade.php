@@ -77,7 +77,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Surat Masuk</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Izin Usaha</h5>
     </center>
 
 
@@ -88,13 +88,12 @@
         <thead>
             <tr>
                 <th class="px-6 py-2">No</th>
-                <th class="px-6 py-2">Nomor Surat</th>
-                <th class="px-6 py-2">Peruntukan</th>
+                <th class="px-6 py-2">No Surat</th>
                 <th class="px-6 py-2">Tanggal</th>
-                <th class="px-6 py-2">Asal Surat</th>
                 <th class="px-6 py-2">Tujuan Surat</th>
-                <th class="px-6 py-2">Tentang Surat</th>
-                <th class="px-6 py-2">Klasifikasi</th>
+                <th class="px-6 py-2">Atas nama</th>
+                <th class="px-6 py-2">Keterangan</th>
+                <th class="px-6 py-2">Kategori</th>
             </tr>
         </thead>
         <tbody>
@@ -102,28 +101,15 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($laporanpusat as $item)
+            @foreach ($laporanizinusaha as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">
-                        {{ $item->kodesurat }}
-                    </td>
-                    <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
-                    <td class="px-6 py-2">
-                        {{ $item->tanggal }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->mastercabang->cabang }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->tujuan_surat }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->tentangsurat }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->klasifikasi }}
-                    </td>
+                    <td class="px-6 py-2">{{ $item->kodesurat }}</td>
+                    <td class="px-6 py-2">{{ $item->tanggal }}</td>
+                    <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
+                    <td class="px-6 py-2">{{ $item->atasnama }}</td>
+                    <td class="px-6 py-2">{{ $item->keterangan }}</td>
+                    <td class="px-6 py-2">{{ $item->kategoripertanian }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -131,7 +117,7 @@
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">{{ $item->masterpegawai->nama }}</p>
+    <p class="signature">(Pimpinan)</p>
 </body>
 
 </html>

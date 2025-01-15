@@ -18,14 +18,14 @@
 <!-- Or for RTL support -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-<title>Surat Disposisi</title>
+<title>Surat Keluar</title>
 
 
 <body>
     <div class="container-fluid">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
-              <h1 class="text-center mb-4">Tambah Data Surat Disposisi</h1>
+              <h1 class="text-center mb-4">Tambah Data Surat Keluar</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
@@ -33,6 +33,17 @@
                               <div class="card-body">
                                 <form method="POST" action="{{ route('suratdisposisi.store') }}" enctype="multipart/form-data">
                                     @csrf
+
+                                    <div class="form-group mb-3">
+                                        <label for="id_masterpegawai">Peruntukan</label>
+                                        <select class="form-select" name="id_masterpegawai" id="pegawai"
+                                            style="border-radius: 8px;" data-placeholder="Pilih Peruntukan">
+                                            <option></option>
+                                            @foreach ($masterpegawai as $item)
+                                                <option value="{{ $item->id }}">{{ $item->jabatan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                     <div class="form-group mb-3">
                                         <label for="id_mastercabang">Asal Surat</label>
@@ -186,6 +197,13 @@
 
 <script>
 $( '#judulbuku' ).select2( {
+theme: "bootstrap-5",
+width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+placeholder: $( this ).data( 'placeholder' ),
+} );
+</script>
+<script>
+$( '#pegawai' ).select2( {
 theme: "bootstrap-5",
 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
 placeholder: $( this ).data( 'placeholder' ),

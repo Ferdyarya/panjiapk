@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('catatan');
             $table->string('disposisi');
             $table->string('id_mastercabang');
+            $table->string('id_masterpegawai');
             $table->string('status')->nullable();
             $table->timestamps();
         });

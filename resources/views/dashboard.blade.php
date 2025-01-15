@@ -7,7 +7,7 @@
 
         <div class="container-fluid">
             <!-- Row 1 -->
-            <div class="row">
+            {{-- <div class="row">
                 <!-- BOOKS -->
                 <div class="col-lg-3 col-sm-6">
                     <a href="/">
@@ -68,7 +68,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- REPORT TODAY -->
             <div class="row">
@@ -81,27 +81,27 @@
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col-6 col-md-3">
-                                    <h4 class="text-success"><b>Surat Checking</b></h4>
-                                    <h3> </h3>
+                                    <h4 class="text-success"><b>Surat Masuk</b></h4>
+                                    <h3>{{$jumlahsuratpusat}}</h3>
                                 </div>
                                 {{-- <div class="col-6 col-md-3">
                                     <h4 class="text-info"><b>Surat Keluar</b></h4>
                                     <h3></h3>
                                 </div> --}}
                                 <div class="col-6 col-md-3">
-                                    <h4 class="text-info"><b>Disposisi</b></h4>
-                                    <h3></h3>
+                                    <h4 class="text-info"><b>Surat Keluar</b></h4>
+                                    <h3>{{$jumlahsuratdisposisi}}</h3>
                                 </div>
-                                <div class="col-6 col-md-3">
+                                {{-- <div class="col-6 col-md-3">
                                     <h4 class="text-danger"><b>Surat Klasifikasi</b></h4>
                                     <h3></h3>
                                 </div>
                                 <div class="col-6 col-md-3">
                                     <h4 class="text-warning"><b>Jumlah Semua Surat</b></h4>
                                     <h3>/</h3>
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="row text-center mt-4">
+                            {{-- <div class="row text-center mt-4">
 
                                 <div class="col-6 col-md-3">
                                     <h4 class="text-dark"><b>Permohonan Surat</b></h4>
@@ -115,7 +115,7 @@
                                     <h4 class="text-secondary"><b>Surat Terverifikasi</b></h4>
                                     <h3>/</h3>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

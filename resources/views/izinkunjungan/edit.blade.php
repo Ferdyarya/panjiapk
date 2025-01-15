@@ -19,25 +19,25 @@
 <!-- Or for RTL support -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-<title>Data Surat Masuk</title>
+<title>Data Surat Kunjungan</title>
 
 
 <body>
     <div class="container-fluid">
         <div class="card">
           <div class="card-body" style="border-radius: 15px;">
-              <h1 class="text-center mb-4">Edit Data Surat Masuk</h1>
+              <h1 class="text-center mb-4">Edit Data Surat Kunjungan</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                <form method="POST" action="{{ route('suratpusat.update', $item->id) }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('izinkunjungan.update', $item->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
                                     <div class="form-group">
-                                        <label for="id_mastercabang">Asal Surat</label>
+                                        <label for="id_mastercabang">Ke Cabang</label>
                                         <select class="form-select" name="id_mastercabang" id="judulbuku" data-placeholder="PILIH JUDUL BUKU">
                                             <option></option>
                                             @foreach ($mastercabang as $item)
@@ -54,7 +54,7 @@
                                             @foreach ($masterpegawai as $item)
                                                 <option value="{{ $item->id }}"
                                                     @if(isset($data) && $data->id_masterpegawai == $item->id) selected @endif>
-                                                    {{ $item->jabatan }}
+                                                    {{ $item->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -72,21 +72,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tentangsurat">Tentang Surat</label>
-                                        <textarea name="tentangsurat" class="form-control" placeholder="Masukan Tentang Surat" required>{{ $item->tentangsurat }}</textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="filesurat">File Surat</label>
-                                        <input type="file" name="filesurat" class="form-control">
-                                        @if($item->filesurat)
-                                            <p>File saat ini: <a href="{{ url('filesurat/'.$item->filesurat) }}" target="_blank">{{ $item->filesurat }}</a></p>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="klasifikasi">Klasifikasi</label>
-                                        <input value="{{ $item->klasifikasi }}" type="text" name="klasifikasi" class="form-control" placeholder="Masukan Klasifikasi" required>
+                                        <label for="keterangan">Keterangan</label>
+                                        <textarea name="keterangan" class="form-control" placeholder="Masukan Keterangan" required>{{ $item->keterangan }}</textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>

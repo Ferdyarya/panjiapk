@@ -15,12 +15,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Data Surat Masuk</h1>
+                                <h1 class="m-0">Data Surat Izin Kunjungan</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Surat Masuk</li>
+                                    <li class="breadcrumb-item active">Data Surat Izin Kunjungan</li>
                                 </ol>
                             </div>
                         </div>
@@ -30,14 +30,14 @@
                         {{-- search --}}
                         <div class="row g-3 align-items-center mb-4">
                             <div class="col-auto">
-                                <form action="suratpusat" method="GET">
+                                <form action="izinkunjungan" method="GET">
                                     <input type="text" id="search" name="search" class="form-control"
                                         placeholder="Search">
                                 </form>
                             </div>
                             {{-- Button Export PDF --}}
                             <div class="col-auto">
-                                <a href="{{ route('suratpusat.create') }}" class="btn btn-success">
+                                <a href="{{ route('izinkunjungan.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
@@ -47,14 +47,12 @@
                                 <thead>
                                     <tr>
                                         <th class="px-6 py-2">No</th>
-                                        <th class="px-6 py-2">Nomor Surat</th>
-                                        <th class="px-6 py-2">Peruntukan</th>
+                                        <th class="px-6 py-2">No Surat</th>
                                         <th class="px-6 py-2">Tanggal</th>
-                                        <th class="px-6 py-2">Asal Surat</th>
                                         <th class="px-6 py-2">Tujuan Surat</th>
-                                        <th class="px-6 py-2">Tentang Surat</th>
-                                        <th class="px-6 py-2">Klasifikasi</th>
-                                        <th class="px-6 py-2">File Surat</th>
+                                        <th class="px-6 py-2">Pegawai Terpilih</th>
+                                        <th class="px-6 py-2">Ke Cabang</th>
+                                        <th class="px-6 py-2">Keterangan</th>
                                         @if (Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
                                         @endif
@@ -64,55 +62,31 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($suratpusat as $index => $item)
+                                    @foreach ($izinkunjungan as $index => $item)
                                         <tr>
-                                            <th class="px-6 py-2">{{ $index + $suratpusat->firstItem() }}</th>
-                                            <td class="px-6 py-2">{{ $item->kodesurat }}
-                                            </td>
-                                            <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
-                                            <td class="px-6 py-2">{{ $item->tanggal }}
-                                            </td>
-                                            <td class="px-6 py-2">
-                                                {{ $item->mastercabang->cabang }}
-                                            </td>
-                                            <td class="px-6 py-2">
-                                                {{ $item->tujuan_surat }}
-                                            </td>
-                                            <td class="px-6 py-2">
-                                                {{ $item->tentangsurat }}
-                                            </td>
-                                            <td class="px-6 py-2">
-                                                {{ $item->klasifikasi }}
-                                            </td>
-                                            <td class="border textmid">
-                                                @if ($item->filesurat)
-                                                    <!-- Periksa nama kolom yang sesuai -->
-                                                    <a href="{{ asset('filesurat/' . $item->filesurat) }}"
-                                                        class="btn btn-primary" download>
-                                                        Download
-                                                    </a>
-                                                @else
-                                                    Tidak ada file
-                                                @endif
-                                            </td>
-                                            @if (Auth::user()->hakakses('admin'))
+                                            <th class="px-6 py-2">{{ $index + $izinkunjungan->firstItem() }}</th>
+                                            <td class="px-6 py-2">{{ $item->kodesurat }}</td>
+                                            <td class="px-6 py-2">{{ $item->tanggal }}</td>
+                                            <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
+                                            <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                                            <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
+                                            <td class="px-6 py-2">{{ $item->keterangan }}</td>
                                             <td>
-                                                <a href="{{ route('suratpusat.edit', $item->id) }}" class="btn btn-primary">
+                                                <a href="{{ route('izinkunjungan.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('suratpusat.destroy', $item->id) }}" method="POST"
+                                                <form action="{{ route('izinkunjungan.destroy', $item->id) }}" method="POST"
                                                     style="display:inline;">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>
                                             </td>
-                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $suratpusat->links() }}
+                            {{ $izinkunjungan->links() }}
                         </div>
                     </div>
                 </div>

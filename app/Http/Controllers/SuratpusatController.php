@@ -6,6 +6,7 @@ use PDF;
 use App\Models\Suratpusat;
 use App\Models\Mastercabang;
 use Illuminate\Http\Request;
+use App\Models\Masterpegawai;
 
 class SuratpusatController extends Controller
 {
@@ -25,8 +26,11 @@ class SuratpusatController extends Controller
     public function create()
     {
         $mastercabang = Mastercabang::all();
+        $masterpegawai = Masterpegawai::all();
+
         return view('suratpusat.create', [
             'mastercabang' => $mastercabang,
+            'masterpegawai' => $masterpegawai,
         ]);
         return view('suratpusat.create')->with('success', 'Data Telah ditambahkan');
     }
@@ -96,10 +100,12 @@ class SuratpusatController extends Controller
     public function edit(Suratpusat $suratpusat)
     {
         $mastercabang = Mastercabang::all();
+        $masterpegawai = Masterpegawai::all();
 
         return view('suratpusat.edit', [
             'item' => $suratpusat,
             'mastercabang' => $mastercabang,
+            'masterpegawai' => $masterpegawai,
         ]);
     }
 

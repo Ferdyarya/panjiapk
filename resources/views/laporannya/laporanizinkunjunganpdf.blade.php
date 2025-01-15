@@ -32,8 +32,8 @@
             padding-top: 12px;
             padding-bottom: 12px;
             /* text-align: left; */
-            background-color: #0423aa;
-            color: white;
+            background-color: #f8ff20;
+            color: rgb(0, 0, 0);
             /* text-align: center; */
         }
 
@@ -67,18 +67,17 @@
     <div class="rangkasurat">
         <table width="100%">
             <tr>
-                <td><img src="{{ public_path ('assets/logo-sekolah.png')}}" alt="logo" width="140px"></td>
+                <td><img src="{{ public_path('assets/BSIP.png') }}" alt="logo" width="140px"></td>
                 <td class="tengah">
-                    <h4>PT. SUMBER SEHAT MAKMUR</h4>
-                    <p>Jl. Trikora No.6, Landasan Ulin Sel., Kec. Liang Anggang, Kota Banjar Baru, Kalimantan Selatan
-                        70722</p>
+                    <h4>BADAN STANDARISASI INSTRUMEN PERTANIAN</h4>
+                    <p>Jl. Panglima Batur No.4, Loktabat Utara, Kec. Banjarbaru Utara, Kota Banjar Baru, Kalimantan Selatan 70714</p>
                 </td>
             </tr>
         </table>
     </div>
 
     <center>
-        <h5 class="mt-4">Laporan Master Data Sales</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Izin Usaha</h5>
     </center>
 
 
@@ -88,11 +87,13 @@
     <table class='table table-bordered' id="warnatable">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Kode</th>
-                <th>Nama</th>
-                <th>Nomor Telepon</th>
-                {{-- <th>Tanggal</th> --}}
+                <th class="px-6 py-2">No</th>
+                <th class="px-6 py-2">No Surat</th>
+                <th class="px-6 py-2">Tanggal</th>
+                <th class="px-6 py-2">Tujuan Surat</th>
+                <th class="px-6 py-2">Pegawai Terpilih</th>
+                <th class="px-6 py-2">Ke Cabang</th>
+                <th class="px-6 py-2">Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -100,25 +101,23 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($masterpegawai as $item )
-            <tr>
-                <td class="border">{{ $loop->iteration }}</td>
-                <td class="border textmid">{{ $item->kode }}</td>
-                <td class="border textmid">{{ $item->nama }}</td>
-                <td class="border textmid">{{ $item->no_telp }}</td>
-                {{-- <td class="border px-6 py-4">{{ $item->tanggal->format('d M Y') }}</td> --}}
-            </tr>
+            @foreach ($laporanizinkunjungan as $item)
+                <tr>
+                    <td class="px-6 py-6">{{ $loop->iteration }}</td>
+                    <td class="px-6 py-2">{{ $item->kodesurat }}</td>
+                    <td class="px-6 py-2">{{ $item->tanggal }}</td>
+                    <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
+                    <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                    <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
+                    <td class="px-6 py-2">{{ $item->keterangan }}</td>
+                </tr>
             @endforeach
-            {{-- <tr>
-                <td colspan="7">Grand Total</td>
-                <td>Rp. {{ number_format($grandTotal)}}</td>
-            </tr> --}}
         </tbody>
     </table>
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">(Supervisor)</p>
+    <p class="signature">(Pimpinan)</p>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Mastercabang;
 use Illuminate\Http\Request;
+use App\Models\Masterpegawai;
 use App\Models\Suratdisposisi;
 
 class SuratdisposisiController extends Controller
@@ -25,8 +26,10 @@ class SuratdisposisiController extends Controller
     public function create()
     {
         $mastercabang = Mastercabang::all();
+        $masterpegawai = Masterpegawai::all();
         return view('suratdisposisi.create', [
             'mastercabang' => $mastercabang,
+            'masterpegawai' => $masterpegawai,
         ]);
         return view('suratdisposisi.create')->with('success', 'Data Telah ditambahkan');
     }
@@ -91,10 +94,12 @@ public function generatenmrsurat()
     public function edit(Suratdisposisi $suratdisposisi)
     {
         $mastercabang = Mastercabang::all();
+        $masterpegawai = Masterpegawai::all();
 
         return view('suratdisposisi.edit', [
             'item' => $suratdisposisi,
             'mastercabang' => $mastercabang,
+            'masterpegawai' => $masterpegawai,
         ]);
     }
 

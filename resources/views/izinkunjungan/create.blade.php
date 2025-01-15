@@ -18,27 +18,22 @@
 <!-- Or for RTL support -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-<title>Surat Masuk</title>
+<title>Surat Kunjungan</title>
 
 
 <body>
     <div class="container-fluid">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
-              <h1 class="text-center mb-4">Tambah Data Surat Masuk</h1>
+              <h1 class="text-center mb-4">Tambah Data Surat Kunjungan</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                <form method="POST" action="{{ route('suratpusat.store') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('izinkunjungan.store') }}" enctype="multipart/form-data">
                                     @csrf
 
-                                  <div class="form-group">
-                                      <label for="exampleInputPassword1">Masukan File Surat Masuk</label>
-                                      <input type="file" name="filesurat" class="form-control"
-                                          placeholder="Masukan File Surat">
-                                  </div>
                                   <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
                                     <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" value="{{ old('tanggal') }}" required>
@@ -47,8 +42,8 @@
                                     @enderror
                                 </div>
                                   <div class="form-group mb-3">
-                                    <label for="id_mastercabang">Asal Surat</label>
-                                    <select class="form-select" name="id_mastercabang" id="judulbuku" style="border-radius: 8px;" data-placeholder="Pilih cabang">
+                                    <label for="id_mastercabang">Ke Cabang</label>
+                                    <select class="form-select" name="id_mastercabang" id="judulbuku" style="border-radius: 8px;">
                                         <option></option>
                                         @foreach ($mastercabang as $item)
                                             <option value="{{ $item->id }}">{{ $item->cabang }}</option>
@@ -56,12 +51,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="id_masterpegawai">Peruntukan</label>
+                                    <label for="id_masterpegawai">Pegawai Terpilih</label>
                                     <select class="form-select" name="id_masterpegawai" id="pegawai"
-                                        style="border-radius: 8px;" data-placeholder="Pilih Peruntukan">
+                                        style="border-radius: 8px;" data-placeholder="Pilih Pegawai Yang Berangkat">
                                         <option></option>
                                         @foreach ($masterpegawai as $item)
-                                            <option value="{{ $item->id }}">{{ $item->jabatan }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -73,18 +68,11 @@
                                       @enderror
                                   </div>
 
-                                  <div class="form-group">
-                                    <label for="tentangsurat">Tentang Surat</label>
-                                    <textarea name="tentangsurat" class="form-control @error('tentangsurat') is-invalid @enderror" id="tentangsurat" placeholder="Masukkan Tentang Surat" required>{{ old('tentangsurat') }}</textarea>
-                                    @error('tentangsurat')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                   <div class="form-group">
-                                      <label for="klasifikasi">Klasifikasi</label>
-                                      <input type="text" name="klasifikasi" class="form-control @error('klasifikasi') is-invalid @enderror" id="klasifikasi" placeholder="Masukkan Klasifikasi" value="{{ old('klasifikasi') }}" required>
-                                      @error('klasifikasi')
+                                      <label for="keterangan">Keterangan</label>
+                                      <textarea type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukkan keterangan" value="{{ old('keterangan') }}" required></textarea>
+                                      @error('keterangan')
                                           <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror
                                   </div>
