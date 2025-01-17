@@ -40,6 +40,7 @@ class SuratdisposisiController extends Controller
     // Validasi permintaan
     $request->validate([
         'id_mastercabang' => 'required|string',        // id_mastercabang surat
+        'id_masterpegawai' => 'required|string',        // id_mastercabang surat
         'tglterima' => 'required|date',     // Tanggal terima
         'sifat' => 'required|string',       // Sifat surat
         'perihal' => 'required|string',     // Perihal surat
@@ -53,7 +54,7 @@ class SuratdisposisiController extends Controller
     $nmrsurat = $this->generatenmrsurat();
 
     // Persiapkan data untuk disimpan
-    $data = $request->only(['id_mastercabang', 'tglterima', 'sifat', 'perihal', 'diteruskan', 'catatan', 'disposisi',]);
+    $data = $request->only(['id_mastercabang', 'tglterima', 'sifat', 'perihal', 'diteruskan', 'catatan', 'disposisi','id_masterpegawai']);
     $data['nmrsurat'] = $nmrsurat; // Menambahkan kode surat yang sudah digenerate
 
     // Jika ada file surat, simpan file tersebut dan tambahkan ke data

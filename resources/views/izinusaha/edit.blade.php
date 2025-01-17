@@ -30,7 +30,7 @@
                                       <div class="form-group">
                                         <label for="tanggal">Tanggal</label>
                                         <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-                                            value="{{ old('tanggal', $data->tanggal) }}" required>
+                                            value="{{ old('tanggal', $item->tanggal) }}" required>
                                         @error('tanggal')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label for="tujuan_surat">Tujuan Surat</label>
                                         <input type="text" name="tujuan_surat" class="form-control @error('tujuan_surat') is-invalid @enderror" id="tujuan_surat"
-                                            placeholder="Masukan Tujuan Surat" value="{{ old('tujuan_surat', $data->tujuan_surat) }}" required>
+                                            placeholder="Masukan Tujuan Surat" value="{{ old('tujuan_surat', $item->tujuan_surat) }}" required>
                                         @error('tujuan_surat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -48,7 +48,7 @@
                                     <div class="form-group">
                                         <label for="atasnama">Atas Nama</label>
                                         <input type="text" name="atasnama" class="form-control @error('atasnama') is-invalid @enderror" id="atasnama"
-                                            placeholder="Masukan Atas Nama" value="{{ old('atasnama', $data->atasnama) }}" required>
+                                            placeholder="Masukan Atas Nama" value="{{ old('atasnama', $item->atasnama) }}" required>
                                         @error('atasnama')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
                                         <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
-                                            placeholder="Masukan Keterangan" value="{{ old('keterangan', $data->keterangan) }}" required>
+                                            placeholder="Masukan Keterangan" value="{{ old('keterangan', $item->keterangan) }}" required>
                                         @error('keterangan')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -66,15 +66,15 @@
                                     <div class="form-group">
                                         <label for="kategoripertanian">Kategori</label><br>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input @error('kategoripertanian') is-invalid @enderror" type="radio" id="lahan_basah" name="kategoripertanian" value="Pertanian Lahan Basah" {{ old('kategoripertanian', $data->kategoripertanian) == 'Pertanian Lahan Basah' ? 'checked' : '' }}>
+                                            <input class="form-check-input @error('kategoripertanian') is-invalid @enderror" type="radio" id="lahan_basah" name="kategoripertanian" value="Pertanian Lahan Basah" {{ old('kategoripertanian', $item->kategoripertanian) == 'Pertanian Lahan Basah' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="lahan_basah">Pertanian Lahan Basah</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input @error('kategoripertanian') is-invalid @enderror" type="radio" id="lahan_kering" name="kategoripertanian" value="Pertanian Lahan Kering" {{ old('kategoripertanian', $data->kategoripertanian) == 'Pertanian Lahan Kering' ? 'checked' : '' }}>
+                                            <input class="form-check-input @error('kategoripertanian') is-invalid @enderror" type="radio" id="lahan_kering" name="kategoripertanian" value="Pertanian Lahan Kering" {{ old('kategoripertanian', $item->kategoripertanian) == 'Pertanian Lahan Kering' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="lahan_kering">Pertanian Lahan Kering</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input @error('kategoripertanian') is-invalid @enderror" type="radio" id="perkebunan" name="kategoripertanian" value="Perkebunan" {{ old('kategoripertanian', $data->kategoripertanian) == 'Perkebunan' ? 'checked' : '' }}>
+                                            <input class="form-check-input @error('kategoripertanian') is-invalid @enderror" type="radio" id="perkebunan" name="kategoripertanian" value="Perkebunan" {{ old('kategoripertanian', $item->kategoripertanian) == 'Perkebunan' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="perkebunan">Perkebunan</label>
                                         </div>
                                         @error('kategoripertanian')

@@ -67,7 +67,6 @@
                                 <th class="px-6 py-2">No Telpon</th>
                                 <th class="px-6 py-2">Jabatan</th>
                                 <th class="px-6 py-2">Jenis Kelamin</th>
-                                <th class="px-6 py-2">Cabang</th>
                                 <th class="px-6 py-2">Action</th>
                             </tr>
                         </thead>
@@ -83,7 +82,6 @@
                                 <td class="px-6 py-2">{{ $item->no_telp }}</td>
                                 <td class="px-6 py-2">{{ $item->jabatan }}</td>
                                 <td class="px-6 py-2">{{ $item->jeniskelamin }}</td>
-                                <td class="px-6 py-2">{{ $item->cabang }}</td>
                                 <td class="px-6 py-2">
                                     <a href="{{ route('masterpegawai.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('masterpegawai.destroy', $item->id) }}" method="POST" style="display:inline;">

@@ -38,6 +38,8 @@ class IzinkunjunganController extends Controller
     public function store(Request $request)
 {
     $data = $request->all();
+    
+    $data['kodesurat'] = $this->generateKodeSurat();
 
     Izinkunjungan::create($data);
 

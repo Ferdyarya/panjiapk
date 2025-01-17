@@ -31,6 +31,8 @@ class IzinusahaController extends Controller
 {
     $data = $request->all();
 
+    $data['kodesurat'] = $this->generateKodeSurat();
+
     Izinusaha::create($data);
 
     return redirect()->route('izinusaha.index')->with('success', 'Data telah ditambahkan');

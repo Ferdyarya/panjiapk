@@ -43,6 +43,7 @@ class SuratpusatController extends Controller
     // Validasi permintaan
     $request->validate([
         'id_mastercabang' => 'required|string',
+        'id_masterpegawai' => 'required|string',
         'tujuan_surat' => 'required|string',
         'tentangsurat' => 'required|string',
         'tanggal' => 'required|date',
@@ -54,7 +55,7 @@ class SuratpusatController extends Controller
     $kodeSurat = $this->generateKodeSurat();
 
     // Persiapkan data untuk disimpan
-    $data = $request->only(['id_mastercabang', 'tujuan_surat', 'tentangsurat', 'filesurat', 'klasifikasi','tanggal']);
+    $data = $request->only(['id_mastercabang', 'tujuan_surat', 'tentangsurat', 'filesurat', 'klasifikasi','tanggal','id_masterpegawai']);
     $data['kodesurat'] = $kodeSurat;
 
     // Menangani file surat jika ada

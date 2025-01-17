@@ -11,20 +11,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
-<title>Master Data Anggota</title>
+<title>Master Data Pegawai</title>
 
 
 <body>
     <div class="container-fluid">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
-              <h1 class="text-center mb-4">Edit Data Anggota</h1>
+              <h1 class="text-center mb-4">Edit Data Pegawai</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                  <form method="POST" action="{{ route('masteranggota.update', $item->id) }}" enctype="multipart/form-data">
+                                  <form method="POST" action="{{ route('masterpegawai.update', $item->id) }}" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
                                       <div class="form-group">

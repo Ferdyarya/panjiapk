@@ -75,6 +75,7 @@
                                     @elseif($item->status == 'Ditolak')
                                         <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
                                     @else
+                                    <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span>
                                         <!-- Form for selecting status if it's not set to 'Terverifikasi' or 'Ditolak' -->
                                         @if (Auth::user()->hakakses('pimpinan'))
                                         <form action="{{ route('updateStatus', $item->id) }}" method="POST">
