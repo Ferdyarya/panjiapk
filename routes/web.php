@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IzinusahaController;
+use App\Http\Controllers\HasilauditController;
 use App\Http\Controllers\SuratpusatController;
 use App\Http\Controllers\MastercabangController;
+use App\Http\Controllers\EvaluasiauditController;
 use App\Http\Controllers\IzinkunjunganController;
 use App\Http\Controllers\MasteranggotaController;
 use App\Http\Controllers\MasterpegawaiController;
+use App\Http\Controllers\PengadaanauditController;
 use App\Http\Controllers\SuratdisposisiController;
 /*
 |--------------------------------------------------------------------------
@@ -49,71 +52,55 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
     Route::resource('suratdisposisi', SuratdisposisiController::class);
     Route::resource('izinusaha', IzinusahaController::class);
     Route::resource('izinkunjungan', IzinkunjunganController::class);
+    Route::resource('pengadaanaudit', PengadaanauditController::class);
+    Route::resource('evaluasiaudit', EvaluasiauditController::class);
+    Route::resource('hasilaudit', HasilauditController::class);
     Route::get('suratmasuk', [SuratdisposisiController::class, 'suratMasuk'])->name('suratmasuk');
 
-    // Route untuk verifikasi surat disposisi
-   // Route to update the status of a surat
-    // Route::put('suratmasuk/updateStatus/{id}', [SuratDisposisiController::class, 'updateStatus'])->name('suratmasuk.updateStatus');
+    // Status Route
     Route::put('/suratdisposisi/{id}/status', [SuratDisposisiController::class, 'updateStatus'])->name('updateStatus');
 
-
-
-
-
-    // Verifikasi Di Master Data surat
-    // Route::put('/items/{id}/verify', [MasteranggotaController::class, 'verify'])->name('items.verify');
-
-
-
-
-
-
 // Data Tables Report Report
-Route::get('suratdisposisipdf', [SuratdisposisiController::class, 'suratdisposisipdf'])->name('suratdisposisipdf');
-Route::get('laporanpusatpdf', [SuratpusatController::class, 'laporanpusatpdf'])->name('laporanpusatpdf');
-Route::get('laporanizinusahapdf', [IzinusahaController::class, 'laporanizinusahapdf'])->name('laporanizinusahapdf');
-Route::get('laporanizinkunjunganpdf', [IzinkunjunganController::class, 'laporanizinkunjunganpdf'])->name('laporanizinkunjunganpdf');
-
-// Rute untuk menampilkan laporan anggota
-// Route::get('laporannya/laporananggota', [MasteranggotaController::class, 'perkelas'])->name('laporananggota');
-
-// Rute untuk mengekspor PDF
-// Route::get('/perkelaspdf', [MasteranggotaController::class, 'cetakPerkelasPdf'])->name('laporananggotapdf');
+// Route::get('suratdisposisipdf', [SuratdisposisiController::class, 'suratdisposisipdf'])->name('suratdisposisipdf');
+// Route::get('laporanpusatpdf', [SuratpusatController::class, 'laporanpusatpdf'])->name('laporanpusatpdf');
+// Route::get('laporanizinusahapdf', [IzinusahaController::class, 'laporanizinusahapdf'])->name('laporanizinusahapdf');
+// Route::get('laporanizinkunjunganpdf', [IzinkunjunganController::class, 'laporanizinkunjunganpdf'])->name('laporanizinkunjunganpdf');
 
 // Recap Laporan Tampilan
 Route::get('laporannya/laporandisposisi', [SuratdisposisiController::class, 'cetakpertanggalpengembalian'])->name('laporandisposisi');
-Route::get('laporannya/laporanizinusahapdf', [IzinusahaController::class, 'cetakizinpertanggal'])->name('laporanizinusahapdf');
-Route::get('laporannya/laporanizinkunjunganpdf', [IzinkunjunganController::class, 'cetakizinkunjunganpertanggal'])->name('laporanizinkunjunganpdf');
+Route::get('laporannya/laporanizinusahapdf', [IzinusahaController::class, 'cetakizinpertanggal'])->name('laporanizinusaha');
+Route::get('laporannya/laporanizinkunjunganpdf', [IzinkunjunganController::class, 'cetakizinkunjunganpertanggal'])->name('laporanizinkunjungan');
+Route::get('laporannya/laporanpengadaanauditpdf', [PengadaanauditController::class, 'cetakpengadaanauditpertanggal'])->name('laporanpengadaanaudit');
+Route::get('laporannya/laporanevaluasiauditpdf', [EvaluasiauditController::class, 'cetakevaluasiauditpertanggal'])->name('laporanevaluasiaudit');
+Route::get('laporannya/laporanhasilauditpdf', [HasilauditController::class, 'cetakhasilauditpertanggal'])->name('laporanhasilaudit');
 
 // Filtering
-Route::get('laporandisposisi', [SuratdisposisiController::class, 'filterdatebarang'])->name('laporandisposisi');
-Route::get('laporanpusat', [SuratpusatController::class, 'filterdatebarang'])->name('laporanpusat');
-Route::get('laporanizinusaha', [IzinusahaController::class, 'filterdateizin'])->name('laporanizinusaha');
-Route::get('laporanizinkunjungan', [IzinkunjunganController::class, 'filterdateizinkunjungan'])->name('laporanizinkunjungan');
-
+Route::get('laporandisposisi', [SuratdisposisiController::class, 'filterdatebarang'])->name('filterlaporandisposisi');
+Route::get('laporanpusat', [SuratpusatController::class, 'filterdatebarang'])->name('filterlaporanpusat');
+Route::get('laporanizinusaha', [IzinusahaController::class, 'filterdateizin'])->name('filterlaporanizinusaha');
+Route::get('laporanizinkunjungan', [IzinkunjunganController::class, 'filterdateizinkunjungan'])->name('filterlaporanizinkunjungan');
+Route::get('laporanpengadaanaudit', [PengadaanauditController::class, 'filterdatepengadaanaudit'])->name('filterlaporanpengadaanaudit');
+Route::get('laporanevaluasiaudit', [EvaluasiauditController::class, 'filterdateevaluasiaudit'])->name('filterlaporanevaluasiaudit');
+Route::get('laporanhasilaudit', [HasilauditController::class, 'filterdatehasilaudit'])->name('filterlaporanhasilaudit');
 
 // Filter Laporan
 Route::get('laporandisposisipdf/filter={filter}', [SuratdisposisiController::class, 'laporandisposisipdf'])->name('laporandisposisipdf');
 Route::get('laporanpusatpdf/filter={filter}', [SuratpusatController::class, 'laporanpusatpdf'])->name('laporanpusatpdf');
 Route::get('laporanizinusahapdf/filter={filter}', [IzinusahaController::class, 'laporanizinusahapdf'])->name('laporanizinusahapdf');
 Route::get('laporanizinkunjunganpdf/filter={filter}', [IzinkunjunganController::class, 'laporanizinkunjunganpdf'])->name('laporanizinkunjunganpdf');
+Route::get('laporanevaluasiauditpdf/filter={filter}', [EvaluasiauditController::class, 'laporanevaluasiauditpdf'])->name('laporanevaluasiauditpdf');
+Route::get('laporanhasilauditpdf/filter={filter}', [HasilauditController::class, 'laporanhasilauditpdf'])->name('laporanhasilauditpdf');
 
 
 // Disposisi Verifikasi
-// Route to show verified surat data
 Route::get('suratverif', [SuratDisposisiController::class, 'tampilanterverifikasi'])->name('suratverif');
-// Route for searching surat
 Route::get('suratverif/search', [SuratDisposisiController::class, 'terverifikasipencariannomorsurat'])->name('suratverif.search');
-// Route to generate PDF for printing
 Route::get('suratverif/pdf', [SuratDisposisiController::class, 'terverifikasipdf'])->name('laporansuratverifpdf');
 
 
-// Disposisi Verifikasi
-// Route to show verified surat data
+// Disposisi Ditolak
 Route::get('suratditolak', [SuratDisposisiController::class, 'tampilanditolak'])->name('suratditolak');
-// Route for searching surat
 Route::get('suratditolak/search', [SuratDisposisiController::class, 'ditolakpencariannomorsurat'])->name('suratditolak.search');
-// Route to generate PDF for printing
 Route::get('suratditolak/pdf', [SuratDisposisiController::class, 'ditolakpdf'])->name('laporansuratditolakpdf');
 
 });

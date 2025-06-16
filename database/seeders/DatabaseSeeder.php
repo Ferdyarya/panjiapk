@@ -6,8 +6,9 @@ namespace Database\Seeders;
 
 // use App\Models\Masterpegawai;
 
-use App\Models\Masteranggota;
 use App\Models\User;
+use App\Models\Masteranggota;
+use App\Models\Masterpegawai;
 use Illuminate\Database\Seeder;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\DB;
@@ -37,12 +38,26 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('2'),
             'roles' => 'admin'
         ]);
+        User::create([
+            'name' => 'Mike',
+            'email' => 'mike@gmail.com',
+            'password' => bcrypt('2'),
+            'roles' => 'auditor'
+        ]);
 
         User::create([
             'name' => 'Reza',
             'email' => 'reza@gmail.com',
             'password' => bcrypt('3'),
             'roles' => 'petugas'
+        ]);
+
+        Masterpegawai::create([
+            'nama' => 'oki',
+            'email' => 'oki@gmail.com',
+            'no_telp' => '91919191',
+            'jabatan' => 'kepala lppk',
+            'jeniskelamin' => 'laki-laki',
         ]);
 
     }

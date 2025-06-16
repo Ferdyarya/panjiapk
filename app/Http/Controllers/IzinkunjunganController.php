@@ -38,7 +38,7 @@ class IzinkunjunganController extends Controller
     public function store(Request $request)
 {
     $data = $request->all();
-    
+
     $data['kodesurat'] = $this->generateKodeSurat();
 
     Izinkunjungan::create($data);
@@ -100,12 +100,12 @@ public function generateKodeSurat()
         return redirect()->route('izinkunjungan.index')->with('success', 'Data Telah dihapus');
     }
 
-    public function izinkunjunganpdf() {
-        $data = Izinkunjungan::all();
+    // public function izinkunjunganpdf() {
+    //     $data = Izinkunjungan::all();
 
-        $pdf = PDF::loadview('izinkunjungan/izinkunjunganpdf', ['izinkunjungan' => $data]);
-        return $pdf->download('laporan_Bukuizinkunjungan.pdf');
-    }
+    //     $pdf = PDF::loadview('izinkunjungan/izinkunjunganpdf', ['izinkunjungan' => $data]);
+    //     return $pdf->download('laporan_Bukuizinkunjungan.pdf');
+    // }
 
     // Laporan Buku izinkunjungan Filter
     public function cetakizinkunjunganpertanggal()

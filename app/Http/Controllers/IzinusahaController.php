@@ -87,12 +87,12 @@ public function generateKodeSurat()
         return redirect()->route('izinusaha.index')->with('success', 'Data Telah dihapus');
     }
 
-    public function izinusahapdf() {
-        $data = Izinusaha::all();
+    // public function izinusahapdf() {
+    //     $data = Izinusaha::all();
 
-        $pdf = PDF::loadview('izinusaha/izinusahapdf', ['izinusaha' => $data]);
-        return $pdf->download('laporan_Bukuizinusaha.pdf');
-    }
+    //     $pdf = PDF::loadview('izinusaha/izinusahapdf', ['izinusaha' => $data]);
+    //     return $pdf->download('laporan_Bukuizinusaha.pdf');
+    // }
 
     // Laporan Buku izinusaha Filter
     public function cetakizinpertanggal()

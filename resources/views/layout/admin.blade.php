@@ -78,11 +78,10 @@
                   </li>
                   @endif
                   @if (Auth::user()->hakakses('pimpinan') || Auth::user()->hakakses('admin'))
-                  <li class="nav-small-cap">
+                <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Data Table</span>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('suratpusat.index') }}" aria-expanded="false">
                         <span>
@@ -123,6 +122,30 @@
                         <span class="hide-menu">Surat Izin Kunjungan</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('pengadaanaudit.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Pengadaan Audit</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('evaluasiaudit.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Evaluasi Audit</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('hasilaudit.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Hasil Audit</span>
+                    </a>
+                </li>
                 @endif
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('suratdisposisi.index') }}" aria-expanded="false">
@@ -145,14 +168,14 @@
                       <span class="hide-menu">Lap Surat Keluar</span>
                     </a>
                   </li>
-                  <li class="sidebar-item">
+                  {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('laporanpusat')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
                       <span class="hide-menu">Lap Surat Masuk</span>
                     </a>
-                  </li>
+                  </li> --}}
                   <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('laporanizinusaha')}}" aria-expanded="false">
                       <span>
@@ -175,6 +198,30 @@
                         <i class="ti ti-report"></i>
                       </span>
                       <span class="hide-menu">Lap Surat Sudah Terverifikasi</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanpengadaanaudit')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Perngadaan Audit</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanevaluasiaudit')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Evaluasi Audit</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanhasilaudit')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Hasil Audit</span>
                     </a>
                   </li>
                   @endif

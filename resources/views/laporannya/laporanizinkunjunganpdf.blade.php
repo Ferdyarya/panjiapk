@@ -77,7 +77,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Surat Izin Usaha</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Kunjungan</h5>
     </center>
 
 
@@ -105,7 +105,7 @@
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->kodesurat }}</td>
-                    <td class="px-6 py-2">{{ $item->tanggal }}</td>
+                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
                     <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
                     <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>

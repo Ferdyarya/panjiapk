@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Laporan Data Surat Masuk</h3>
+                                <h3 class="m-0">Laporan Data Surat Hasil Audit</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Laporan Data Surat Masuk</li>
+                                    <li class="breadcrumb-item active">Laporan Data Surat Hasil Audit</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('filterlaporanpusat') }}" method="GET" class="row">
+                        <form action="{{ route('filterlaporanhasilaudit') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporanpusatpdf', $filter) }}"
+                                    <a href="{{ route('laporanhasilauditpdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporanpusatpdf', 'all') }}"
+                                    <a href="{{ route('laporanhasilauditpdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>
@@ -69,56 +69,33 @@
                             <thead>
                                 <tr>
                                     <th class="px-6 py-2">No</th>
-                                    <th class="px-6 py-2">Nomor Surat</th>
-                                    <th class="px-6 py-2">Peruntukan</th>
+                                    <th class="px-6 py-2">No Surat</th>
                                     <th class="px-6 py-2">Tanggal</th>
-                                    <th class="px-6 py-2">Asal Surat</th>
-                                    <th class="px-6 py-2">Tujuan Surat</th>
-                                    <th class="px-6 py-2">Tentang Surat</th>
-                                    <th class="px-6 py-2">Klasifikasi</th>
+                                    <th class="px-6 py-2">Cabang Di Audit</th>
+                                    <th class="px-6 py-2">Keterangan</th>
+                                    <th class="px-6 py-2">Nilai</th>
+                                    <th class="px-6 py-2">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporanpusat as $index => $item)
+                                @foreach ($laporanhasilaudit as $index => $item)
                                     <tr>
-                                        <th class="px-6 py-2">{{ $index + $laporanpusat->firstItem() }}</th>
-                                        <td class="px-6 py-2">
-                                            {{ $item->kodesurat }}
+                                        <th class="px-6 py-2">{{ $index + $laporanhasilaudit->firstItem() }}</th>
+                                        <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
+                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
                                         </td>
-                                        <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
-                                        <td class="px-6 py-2">
-                                            {{ $item->tanggal }}
-                                        </td>
-                                        <td class="px-6 py-2">
-                                            {{ $item->mastercabang->cabang }}
-                                        </td>
-                                        <td class="px-6 py-2">
-                                            {{ $item->tujuan_surat }}
-                                        </td>
-                                        <td class="px-6 py-2">
-                                            {{ $item->tentangsurat }}
-                                        </td>
-                                        <td class="px-6 py-2">
-                                            {{ $item->klasifikasi }}
-                                        </td>
-                                        {{-- <td>
-                                      <a href="{{ route('rusak.edit', $item->id)}}" class="btn btn-primary">
-                                          Edit
-                                      </a>
-                                      <form action="{{ route('rusak.destroy', $item->id) }}" method="POST" style="display:inline;">
-                                          @csrf
-                                          @method('delete')
-                                          <button type="submit" class="btn btn-danger">Hapus</button>
-                                      </form>
-                                  </td> --}}
+                                        <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
+                                        <td class="px-6 py-2">{{ $item->temuan }}</td>
+                                        <td class="px-6 py-2">{{ $item->nilai }}</td>
+                                        <td class="px-6 py-2">{{ $item->status }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporanpusat->links() }}
+                        {{ $laporanhasilaudit->links() }}
                     </div>
                 </div>
             </div>

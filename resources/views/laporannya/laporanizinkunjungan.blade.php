@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporanizinkunjungan') }}" method="GET" class="row">
+                        <form action="{{ route('filterlaporanizinkunjungan') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -85,7 +85,7 @@
                                     <tr>
                                         <th class="px-6 py-2">{{ $index + $laporanizinkunjungan->firstItem() }}</th>
                                         <td class="px-6 py-2">{{ $item->kodesurat }}</td>
-                                        <td class="px-6 py-2">{{ $item->tanggal }}</td>
+                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                         <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
                                         <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
                                         <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>

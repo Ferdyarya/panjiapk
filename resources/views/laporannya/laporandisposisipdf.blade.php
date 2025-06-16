@@ -123,7 +123,7 @@
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">{{ $item->masterpegawai->nama }}</p>
+    <p class="signature">Pimpinan</p>
 </body>
 
 </html>

@@ -16,12 +16,12 @@
             <div class="content-header">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Laporan Data Surat Disposisi Terverifikasi</h1>
+                            <h1 class="m-0">Laporan Data Surat Keluar Terverifikasi</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Laporan Data Surat Disposisi Terverifikasi</li>
+                                <li class="breadcrumb-item active">Laporan Data Surat Keluar Terverifikasi</li>
                             </ol>
                         </div>
                     </div>

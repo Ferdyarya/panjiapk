@@ -70,14 +70,15 @@
                 <td><img src="{{ public_path('assets/BSIP.png') }}" alt="logo" width="140px"></td>
                 <td class="tengah">
                     <h4>BADAN STANDARISASI INSTRUMEN PERTANIAN</h4>
-                    <p>Jl. Panglima Batur No.4, Loktabat Utara, Kec. Banjarbaru Utara, Kota Banjar Baru, Kalimantan Selatan 70714</p>
+                    <p>Jl. Panglima Batur No.4, Loktabat Utara, Kec. Banjarbaru Utara, Kota Banjar Baru, Kalimantan
+                        Selatan 70714</p>
                 </td>
             </tr>
         </table>
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Surat Masuk</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Pengadaan Audit</h5>
     </center>
 
 
@@ -88,13 +89,11 @@
         <thead>
             <tr>
                 <th class="px-6 py-2">No</th>
-                <th class="px-6 py-2">Nomor Surat</th>
-                <th class="px-6 py-2">Peruntukan</th>
+                <th class="px-6 py-2">No Surat</th>
                 <th class="px-6 py-2">Tanggal</th>
-                <th class="px-6 py-2">Asal Surat</th>
-                <th class="px-6 py-2">Tujuan Surat</th>
-                <th class="px-6 py-2">Tentang Surat</th>
-                <th class="px-6 py-2">Klasifikasi</th>
+                <th class="px-6 py-2">Auditor</th>
+                <th class="px-6 py-2">Cabang Di Audit</th>
+                <th class="px-6 py-2">Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -102,28 +101,14 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($laporanpusat as $item)
+            @foreach ($laporanizinkunjungan as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">
-                        {{ $item->kodesurat }}
-                    </td>
-                    <td class="px-6 py-2">{{ $item->masterpegawai->jabatan }}</td>
-                    <td class="px-6 py-2">
-                        {{ $item->tanggal }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->mastercabang->cabang }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->tujuan_surat }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->tentangsurat }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->klasifikasi }}
-                    </td>
+                    <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
+                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
+                    <td class="px-6 py-2">{{ $item->auditor }}</td>
+                    <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
+                    <td class="px-6 py-2">{{ $item->keterangan }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -131,7 +116,7 @@
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">Pimpinan</p>
+    <p class="signature">(Pimpinan)</p>
 </body>
 
 </html>

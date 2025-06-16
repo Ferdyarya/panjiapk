@@ -105,7 +105,7 @@
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->kodesurat }}</td>
-                    <td class="px-6 py-2">{{ $item->tanggal }}</td>
+                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
                     <td class="px-6 py-2">{{ $item->atasnama }}</td>
                     <td class="px-6 py-2">{{ $item->keterangan }}</td>

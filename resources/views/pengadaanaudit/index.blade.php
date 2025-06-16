@@ -15,12 +15,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Data Surat Izin Kunjungan</h1>
+                                <h1 class="m-0">Data Surat Pengadaan Audit</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Surat Izin Kunjungan</li>
+                                    <li class="breadcrumb-item active">Data Surat Pengadaan Audit</li>
                                 </ol>
                             </div>
                         </div>
@@ -30,14 +30,14 @@
                         {{-- search --}}
                         <div class="row g-3 align-items-center mb-4">
                             <div class="col-auto">
-                                <form action="izinkunjungan" method="GET">
+                                <form action="pengadaanaudit" method="GET">
                                     <input type="text" id="search" name="search" class="form-control"
                                         placeholder="Search">
                                 </form>
                             </div>
                             {{-- Button Export PDF --}}
                             <div class="col-auto">
-                                <a href="{{ route('izinkunjungan.create') }}" class="btn btn-success">
+                                <a href="{{ route('pengadaanaudit.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
@@ -49,33 +49,29 @@
                                         <th class="px-6 py-2">No</th>
                                         <th class="px-6 py-2">No Surat</th>
                                         <th class="px-6 py-2">Tanggal</th>
-                                        <th class="px-6 py-2">Tujuan Surat</th>
-                                        <th class="px-6 py-2">Pegawai Terpilih</th>
-                                        <th class="px-6 py-2">Ke Cabang</th>
+                                        <th class="px-6 py-2">Auditor</th>
+                                        <th class="px-6 py-2">Cabang Di Audit</th> {{-- Tentukan Audit apa --}}
                                         <th class="px-6 py-2">Keterangan</th>
-                                        @if (Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($izinkunjungan as $index => $item)
+                                    @foreach ($pengadaanaudit as $index => $item)
                                         <tr>
-                                            <th class="px-6 py-2">{{ $index + $izinkunjungan->firstItem() }}</th>
-                                            <td class="px-6 py-2">{{ $item->kodesurat }}</td>
+                                            <th class="px-6 py-2">{{ $index + $pengadaanaudit->firstItem() }}</th>
+                                            <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
                                             <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
-                                            <td class="px-6 py-2">{{ $item->tujuan_surat }}</td>
-                                            <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                                            <td class="px-6 py-2">{{ $item->auditor }}</td>
                                             <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
                                             <td class="px-6 py-2">{{ $item->keterangan }}</td>
                                             <td>
-                                                <a href="{{ route('izinkunjungan.edit', $item->id) }}" class="btn btn-primary">
+                                                <a href="{{ route('pengadaanaudit.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('izinkunjungan.destroy', $item->id) }}" method="POST"
+                                                <form action="{{ route('pengadaanaudit.destroy', $item->id) }}" method="POST"
                                                     style="display:inline;">
                                                     @csrf
                                                     @method('delete')
@@ -86,7 +82,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $izinkunjungan->links() }}
+                            {{ $pengadaanaudit->links() }}
                         </div>
                     </div>
                 </div>
