@@ -67,16 +67,17 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
 // Route::get('laporanizinkunjunganpdf', [IzinkunjunganController::class, 'laporanizinkunjunganpdf'])->name('laporanizinkunjunganpdf');
 
 // Recap Laporan Tampilan
-Route::get('laporannya/laporandisposisi', [SuratdisposisiController::class, 'cetakpertanggalpengembalian'])->name('laporandisposisi');
-Route::get('laporannya/laporanizinusahapdf', [IzinusahaController::class, 'cetakizinpertanggal'])->name('laporanizinusaha');
-Route::get('laporannya/laporanizinkunjunganpdf', [IzinkunjunganController::class, 'cetakizinkunjunganpertanggal'])->name('laporanizinkunjungan');
-Route::get('laporannya/laporanpengadaanauditpdf', [PengadaanauditController::class, 'cetakpengadaanauditpertanggal'])->name('laporanpengadaanaudit');
-Route::get('laporannya/laporanevaluasiauditpdf', [EvaluasiauditController::class, 'cetakevaluasiauditpertanggal'])->name('laporanevaluasiaudit');
-Route::get('laporannya/laporanhasilauditpdf', [HasilauditController::class, 'cetakhasilauditpertanggal'])->name('laporanhasilaudit');
+Route::get('laporannya/laporandisposisi', [SuratdisposisiController::class, 'cetakbarangpertanggal'])->name('laporandisposisi');
+Route::get('laporannya/laporanpusat', [SuratpusatController::class, 'cetaksuratpusatpertanggal'])->name('laporanpusat');
+Route::get('laporannya/laporanizinusaha', [IzinusahaController::class, 'cetakizinpertanggal'])->name('laporanizinusaha');
+Route::get('laporannya/laporanizinkunjungan', [IzinkunjunganController::class, 'cetakizinkunjunganpertanggal'])->name('laporanizinkunjungan');
+Route::get('laporannya/laporanpengadaanaudit', [PengadaanauditController::class, 'cetakpengadaanauditpertanggal'])->name('laporanpengadaanaudit');
+Route::get('laporannya/laporanevaluasiaudit', [EvaluasiauditController::class, 'cetakevaluasiauditpertanggal'])->name('laporanevaluasiaudit');
+Route::get('laporannya/laporanhasilaudit', [HasilauditController::class, 'cetakhasilauditpertanggal'])->name('laporanhasilaudit');
 
 // Filtering
-Route::get('laporandisposisi', [SuratdisposisiController::class, 'filterdatebarang'])->name('filterlaporandisposisi');
-Route::get('laporanpusat', [SuratpusatController::class, 'filterdatebarang'])->name('filterlaporanpusat');
+Route::get('laporandisposisi', [SuratdisposisiController::class, 'filterlaporandisposisi'])->name('filterlaporandisposisi');
+Route::get('laporanpusat', [SuratpusatController::class, 'filterdatesuratpusat'])->name('filterlaporanpusat');
 Route::get('laporanizinusaha', [IzinusahaController::class, 'filterdateizin'])->name('filterlaporanizinusaha');
 Route::get('laporanizinkunjungan', [IzinkunjunganController::class, 'filterdateizinkunjungan'])->name('filterlaporanizinkunjungan');
 Route::get('laporanpengadaanaudit', [PengadaanauditController::class, 'filterdatepengadaanaudit'])->name('filterlaporanpengadaanaudit');
@@ -88,6 +89,7 @@ Route::get('laporandisposisipdf/filter={filter}', [SuratdisposisiController::cla
 Route::get('laporanpusatpdf/filter={filter}', [SuratpusatController::class, 'laporanpusatpdf'])->name('laporanpusatpdf');
 Route::get('laporanizinusahapdf/filter={filter}', [IzinusahaController::class, 'laporanizinusahapdf'])->name('laporanizinusahapdf');
 Route::get('laporanizinkunjunganpdf/filter={filter}', [IzinkunjunganController::class, 'laporanizinkunjunganpdf'])->name('laporanizinkunjunganpdf');
+Route::get('laporanpengadaanauditpdf/filter={filter}', [PengadaanauditController::class, 'laporanpengadaanauditpdf'])->name('laporanpengadaanauditpdf');
 Route::get('laporanevaluasiauditpdf/filter={filter}', [EvaluasiauditController::class, 'laporanevaluasiauditpdf'])->name('laporanevaluasiauditpdf');
 Route::get('laporanhasilauditpdf/filter={filter}', [HasilauditController::class, 'laporanhasilauditpdf'])->name('laporanhasilauditpdf');
 

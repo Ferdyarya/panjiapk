@@ -133,14 +133,14 @@ class SuratpusatController extends Controller
 
 
      // Laporan Buku Surat Pusat Filter
-     public function cetakbarangpertanggal()
+     public function cetaksuratpusatpertanggal()
      {
          $suratpusat = Suratpusat::Paginate(10);
 
          return view('laporannya.laporanpusat', ['laporanpusat' => $suratpusat]);
      }
 
-     public function filterdatebarang(Request $request)
+     public function filterdatesuratpusat(Request $request)
      {
          $startDate = $request->input('dari');
          $endDate = $request->input('sampai');

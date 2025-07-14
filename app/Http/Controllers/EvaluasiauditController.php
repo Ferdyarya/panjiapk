@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Mastercabang;
 use Illuminate\Http\Request;
-use App\Models\evaluasiaudit;
+use App\Models\Evaluasiaudit;
 
 class evaluasiauditController extends Controller
 {

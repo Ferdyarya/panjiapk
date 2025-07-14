@@ -101,7 +101,7 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($laporanizinkunjungan as $item)
+            @foreach ($laporanpengadaanaudit as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->nmrsurat }}</td>

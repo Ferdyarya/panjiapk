@@ -188,7 +188,7 @@ public function generatenmrsurat()
          return view('laporannya.laporandisposisi', ['laporandisposisi' => $suratdisposisi]);
      }
 
-     public function filterdatebarang(Request $request)
+     public function filterlaporandisposisi(Request $request)
      {
          $startDate = $request->input('dari');
          $endDate = $request->input('sampai');

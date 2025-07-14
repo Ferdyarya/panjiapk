@@ -168,14 +168,14 @@
                       <span class="hide-menu">Lap Surat Keluar</span>
                     </a>
                   </li>
-                  {{-- <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('laporanpusat')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
                       <span class="hide-menu">Lap Surat Masuk</span>
                     </a>
-                  </li> --}}
+                  </li>
                   <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('laporanizinusaha')}}" aria-expanded="false">
                       <span>
