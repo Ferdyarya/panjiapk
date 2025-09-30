@@ -65,7 +65,7 @@
                       <span>
                         <i class="ti ti-article"></i>
                       </span>
-                      <span class="hide-menu">Cabang Daerah</span>
+                      <span class="hide-menu">Master Cabang Daerah</span>
                     </a>
                   </li>
                   <li class="sidebar-item">
@@ -73,7 +73,7 @@
                       <span>
                         <i class="ti ti-article"></i>
                       </span>
-                      <span class="hide-menu">Pegawai</span>
+                      <span class="hide-menu">Master Pegawai</span>
                     </a>
                   </li>
                   @endif
@@ -99,7 +99,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('suratmasuk') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('suratdisposisi.suratmasuk') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-mail"></i>
                         </span>

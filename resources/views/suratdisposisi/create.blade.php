@@ -33,7 +33,6 @@
                               <div class="card-body">
                                 <form method="POST" action="{{ route('suratdisposisi.store') }}" enctype="multipart/form-data">
                                     @csrf
-
                                     <div class="form-group mb-3">
                                         <label for="id_masterpegawai">Peruntukan</label>
                                         <select class="form-select" name="id_masterpegawai" id="pegawai"
@@ -47,12 +46,18 @@
 
                                     <div class="form-group mb-3">
                                         <label for="id_mastercabang">Asal Surat</label>
-                                        <select class="form-select" name="id_mastercabang" id="judulbuku" style="border-radius: 8px;">
+                                        <select class="form-select" name="id_mastercabang" id="judulbuku" style="border-radius: 8px;" data-placeholder="Pilih Asal">
                                             <option></option>
                                             @foreach ($mastercabang as $item)
                                                 <option value="{{ $item->id }}">{{ $item->cabang }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="exampleInputPassword1">Masukan File Lampiran</label>
+                                      <input type="file" name="lampiran" class="form-control"
+                                          placeholder="Masukan File Lampiran">
                                     </div>
 
                                     <div class="form-group">

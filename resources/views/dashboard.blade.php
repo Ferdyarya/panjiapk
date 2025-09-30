@@ -3,7 +3,7 @@
 @section('content')
     <!-- Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-      data-sidebar-position="fixed" data-header-position="fixed">
+        data-sidebar-position="fixed" data-header-position="fixed">
 
         <div class="container-fluid">
             <!-- Row 1 -->
@@ -82,84 +82,91 @@
                             <div class="row text-center">
                                 <div class="col-6 col-md-3">
                                     <h4 class="text-success"><b>Surat Masuk</b></h4>
-                                    <h3>{{$jumlahsuratpusat}}</h3>
-                                </div>
-                                {{-- <div class="col-6 col-md-3">
-                                    <h4 class="text-info"><b>Surat Keluar</b></h4>
-                                    <h3></h3>
-                                </div> --}}
-                                <div class="col-6 col-md-3">
-                                    <h4 class="text-info"><b>Surat Keluar</b></h4>
-                                    <h3>{{$jumlahsuratdisposisi}}</h3>
-                                </div>
-                                {{-- <div class="col-6 col-md-3">
-                                    <h4 class="text-danger"><b>Surat Klasifikasi</b></h4>
-                                    <h3></h3>
+                                    <h3>{{ $jumlahsuratpusat }}</h3>
                                 </div>
                                 <div class="col-6 col-md-3">
-                                    <h4 class="text-warning"><b>Jumlah Semua Surat</b></h4>
-                                    <h3>/</h3>
-                                </div> --}}
+                                    <h4 class="text-info"><b>Surat Keluar</b></h4>
+                                    <h3>{{ $jumlahsuratdisposisi }}</h3>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <h4 class="text-danger"><b>Surat Keluar</b></h4>
+                                    <h3>{{ $jumlahsuratterverifikasi }}</h3>
+                                </div>
                             </div>
-                            {{-- <div class="row text-center mt-4">
-
-                                <div class="col-6 col-md-3">
-                                    <h4 class="text-dark"><b>Permohonan Surat</b></h4>
-                                    <h3>/</h3>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <h4 class="text-primary"><b>Surat Ditolak</b></h4>
-                                    <h3>/</h3>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <h4 class="text-secondary"><b>Surat Terverifikasi</b></h4>
-                                    <h3>/</h3>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Grafik Peminjaman Buku -->
-            {{-- <div class="row mt-5">
+            <div class="row mt-5">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><b>Peminjaman Buku dalam 3 Tahun Terakhir</b></h3>
+                            <h3 class="card-title"><b>Surat Disposisi Terverifikasi per Minggu (1 Bulan Terakhir)</b></h3>
                         </div>
                         <div class="card-body">
-                            <canvas id="bookLoansChart" width="400" height="200"></canvas>
+                            <canvas id="weeklyDisposisiChart" width="400" height="200"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                const ctx = document.getElementById('bookLoansChart').getContext('2d');
-                const bookLoansChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['2021', '2022', '2023', '2024'], // Ganti dengan tahun yang sesuai
-                        datasets: [{
-                            label: 'Peminjaman Buku',
-                            data: [{{ $loans2021 }}, {{ $loans2022 }}, {{ $loans2023 }}, {{ $loans2024 }}], // Ganti dengan data aktual
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
+            <canvas id="multiBarChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script>
+    const labels = {!! json_encode($labels) !!};
+
+    const dataPusat = {!! json_encode($dataPusat) !!};
+    const dataDisposisi = {!! json_encode($dataDisposisi) !!};
+    const dataTerverifikasi = {!! json_encode($dataTerverifikasi) !!};
+
+    const ctx = document.getElementById('multiBarChart').getContext('2d');
+    const multiBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Surat Pusat',
+                    data: dataPusat,
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Surat Keluar (Disposisi)',
+                    data: dataDisposisi,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Surat Terverifikasi',
+                    data: dataTerverifikasi,
+                    backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
                     }
-                });
-            </script> --}}
+                }
+            }
+        }
+    });
+</script>
+
         </div>
     </div>
 @endsection

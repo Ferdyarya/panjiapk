@@ -61,6 +61,14 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="lampiran">File Lampiran</label>
+                                        <input type="file" name="lampiran" class="form-control">
+                                        @if($item->lampiran)
+                                            <p>File saat ini: <a href="{{ url('lampiran/'.$item->lampiran) }}" target="_blank">{{ $item->lampiran }}</a></p>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="tglterima">Tanggal Terima</label>
                                         <input value="{{ $item->tglterima }}" type="date" name="tglterima" class="form-control" required>
                                     </div>

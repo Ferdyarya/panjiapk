@@ -10,7 +10,7 @@ class Suratdisposisi extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nmrsurat','tglterima','asal','sifat','perihal','diteruskan','catatan','disposisi','id_mastercabang','id_masterpegawai'
+        'nmrsurat','tglterima','asal','sifat','perihal','diteruskan','catatan','disposisi','id_mastercabang','id_masterpegawai','lampiran'
     ];
     public function mastercabang()
     {

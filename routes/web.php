@@ -5,6 +5,7 @@ use App\Models\Masteranggota;
 use App\Models\Suratdisposisi;
 
 // New
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -30,12 +31,77 @@ use App\Http\Controllers\SuratdisposisiController;
 */
 
 Route::get('/', function () {
-    $jumlahsuratdisposisi = Suratdisposisi::count();
     $jumlahsuratpusat = Suratpusat::count();
+    $jumlahsuratdisposisi = Suratdisposisi::count();
+    $jumlahsuratterverifikasi = Suratdisposisi::where('status', 'Terverifikasi')->count();
 
+    // Tentukan tahun dan minggu mulai (misal minggu 38 tahun ini)
+    $startYear = now()->year;
+    $startWeek = 38;
 
-    return view('dashboard',compact(
-        'jumlahsuratdisposisi','jumlahsuratpusat'));
+    // Hitung tanggal mulai dari minggu 38 tahun ini (Senin minggu ke-38)
+    $startDate = Carbon::now()->setISODate($startYear, $startWeek)->startOfWeek();
+
+    // Tanggal akhir tetap minggu ini
+    $endDate = now()->endOfWeek();
+
+    // Query suratpusat per minggu
+    $suratpusatWeekly = Suratpusat::selectRaw('YEAR(created_at) as year, WEEK(created_at, 1) as week, COUNT(*) as total')
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->groupBy('year', 'week')
+        ->orderBy('year')
+        ->orderBy('week')
+        ->get()
+        ->keyBy(fn($item) => "{$item->year}-{$item->week}");
+
+    // Query suratdisposisi per minggu
+    $suratdisposisiWeekly = Suratdisposisi::selectRaw('YEAR(created_at) as year, WEEK(created_at, 1) as week, COUNT(*) as total')
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->groupBy('year', 'week')
+        ->orderBy('year')
+        ->orderBy('week')
+        ->get()
+        ->keyBy(fn($item) => "{$item->year}-{$item->week}");
+
+    // Query surat disposisi terverifikasi per minggu
+    $suratterverifikasiWeekly = Suratdisposisi::selectRaw('YEAR(created_at) as year, WEEK(created_at, 1) as week, COUNT(*) as total')
+        ->where('status', 'Terverifikasi')
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->groupBy('year', 'week')
+        ->orderBy('year')
+        ->orderBy('week')
+        ->get()
+        ->keyBy(fn($item) => "{$item->year}-{$item->week}");
+
+    // Siapkan array untuk label dan data
+    $labels = [];
+    $dataPusat = [];
+    $dataDisposisi = [];
+    $dataTerverifikasi = [];
+
+    // Loop 12 minggu mulai dari minggu 38
+    for ($i = 0; $i < 12; $i++) {
+        $date = Carbon::now()->setISODate($startYear, $startWeek)->addWeeks($i)->startOfWeek();
+        $year = $date->year;
+        $week = $date->weekOfYear;
+
+        $labels[] = "Minggu {$week} ({$year})";
+        $key = "{$year}-{$week}";
+
+        $dataPusat[] = $suratpusatWeekly[$key]->total ?? 0;
+        $dataDisposisi[] = $suratdisposisiWeekly[$key]->total ?? 0;
+        $dataTerverifikasi[] = $suratterverifikasiWeekly[$key]->total ?? 0;
+    }
+
+    return view('dashboard', compact(
+        'jumlahsuratpusat',
+        'jumlahsuratdisposisi',
+        'jumlahsuratterverifikasi',
+        'labels',
+        'dataPusat',
+        'dataDisposisi',
+        'dataTerverifikasi'
+    ));
 })->middleware('auth');
 
 
@@ -55,7 +121,7 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
     Route::resource('pengadaanaudit', PengadaanauditController::class);
     Route::resource('evaluasiaudit', EvaluasiauditController::class);
     Route::resource('hasilaudit', HasilauditController::class);
-    Route::get('suratmasuk', [SuratdisposisiController::class, 'suratMasuk'])->name('suratmasuk');
+    Route::get('/suratmasuk', [SuratDisposisiController::class, 'suratMasuk'])->name('suratdisposisi.suratmasuk');
 
     // Status Route
     Route::put('/suratdisposisi/{id}/status', [SuratDisposisiController::class, 'updateStatus'])->name('updateStatus');

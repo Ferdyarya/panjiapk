@@ -7,7 +7,7 @@ use App\Models\Mastercabang;
 use Illuminate\Http\Request;
 use App\Models\Evaluasiaudit;
 
-class evaluasiauditController extends Controller
+class EvaluasiauditController extends Controller
 {
     public function index(Request $request)
     {

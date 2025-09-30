@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('suratdisposisis', function (Blueprint $table) {
             $table->id();
             $table->string('nmrsurat')->nullable();
+            $table->string('google_event_id')->nullable();
             $table->string('tglterima');
             $table->string('sifat');
             $table->string('perihal');
             $table->string('diteruskan');
             $table->string('catatan');
             $table->string('disposisi');
+            $table->string('lampiran');
             $table->string('id_mastercabang');
             $table->string('id_masterpegawai');
             $table->string('status')->nullable();

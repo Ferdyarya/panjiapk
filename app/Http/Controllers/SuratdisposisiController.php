@@ -1,26 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use PDF;
+
+use Carbon\Carbon;
 use App\Models\Mastercabang;
 use Illuminate\Http\Request;
 use App\Models\Masterpegawai;
 use App\Models\Suratdisposisi;
+use Spatie\GoogleCalendar\Event;
 
 class SuratdisposisiController extends Controller
 {
     public function index(Request $request)
-    {
-        if($request->has('search')){
-            $suratdisposisi = Suratdisposisi::where('nmrsurat', 'LIKE', '%' .$request->search.'%')->paginate(10);
-        }else{
-            $suratdisposisi = Suratdisposisi::paginate(10);
-        }
-        return view('suratdisposisi.index',[
-            'suratdisposisi' => $suratdisposisi
-        ]);
+{
+    $query = Suratdisposisi::query();
+
+    if ($request->has('search') && $request->search != '') {
+        $query->where('nmrsurat', 'LIKE', '%' . $request->search . '%');
     }
+
+    if ($request->has('perihal') && $request->perihal != '') {
+        $query->where('perihal', $request->perihal);
+    }
+
+    $suratdisposisi = $query->paginate(10)->appends($request->all());
+
+    // Asumsikan kamu sudah menyiapkan variable $perihal untuk filter dropdown
+    $perihal = Suratdisposisi::select('perihal')->distinct()->pluck('perihal');
+
+    return view('suratdisposisi.index', [
+        'suratdisposisi' => $suratdisposisi,
+        'perihal' => $perihal,
+    ]);
+}
+
 
 
     public function create()
@@ -37,37 +51,60 @@ class SuratdisposisiController extends Controller
 
     public function store(Request $request)
 {
-    // Validasi permintaan
     $request->validate([
-        'id_mastercabang' => 'required|string',        // id_mastercabang surat
-        'id_masterpegawai' => 'required|string',        // id_mastercabang surat
-        'tglterima' => 'required|date',     // Tanggal terima
-        'sifat' => 'required|string',       // Sifat surat
-        'perihal' => 'required|string',     // Perihal surat
-        'diteruskan' => 'required|string',  // Kepada siapa surat diteruskan
-        'catatan' => 'nullable|string',     // Catatan
-        'disposisi' => 'nullable|string',   // Disposisi surat
-        'filesurat' => 'file|mimes:pdf',    // File surat
+        'id_mastercabang'   => 'required|string',
+        'id_masterpegawai'  => 'required|string',
+        'tglterima'         => 'required|date',
+        'sifat'             => 'required|string',
+        'perihal'           => 'required|string',
+        'diteruskan'        => 'required|string',
+        'catatan'           => 'nullable|string',
+        'disposisi'         => 'nullable|string',
+        'lampiran'         => 'file|mimes:pdf',
     ]);
 
-    // Generate kode surat
+    // Generate nomor surat
     $nmrsurat = $this->generatenmrsurat();
 
-    // Persiapkan data untuk disimpan
-    $data = $request->only(['id_mastercabang', 'tglterima', 'sifat', 'perihal', 'diteruskan', 'catatan', 'disposisi','id_masterpegawai']);
-    $data['nmrsurat'] = $nmrsurat; // Menambahkan kode surat yang sudah digenerate
+    // Ambil data request
+    $data = $request->only([
+        'id_mastercabang',
+        'id_masterpegawai',
+        'tglterima',
+        'sifat',
+        'perihal',
+        'diteruskan',
+        'catatan',
+        'disposisi',
+        'lampiran'
+    ]);
+    $data['nmrsurat'] = $nmrsurat;
 
-    // Jika ada file surat, simpan file tersebut dan tambahkan ke data
-    if ($request->hasFile('filesurat')) {
-        $data['filesurat'] = $request->file('filesurat')->store('surat_files', 'public');
+    // Menangani file surat jika ada
+    if ($request->hasFile('lampiran')) {
+        $fileName = $request->file('lampiran')->getClientOriginalName();
+        $request->file('lampiran')->move(public_path('lampiran'), $fileName);
+        $data['lampiran'] = $fileName;
     }
 
-    // Buat entri baru dengan data yang sudah disiapkan
-    Suratdisposisi::create($data);
+    // Buat entri di database dan simpan ke variabel model
+    $surat = Suratdisposisi::create($data);
 
-    // Redirect dengan pesan sukses
-    return redirect()->route('suratdisposisi.index')->with('success', 'Data telah ditambahkan');
+    // Buat event Google Calendar
+    $event = new Event;
+    $event->name = "Surat: " . $request->perihal;
+    $event->description = "Sifat: {$request->sifat}\nDiteruskan: {$request->diteruskan}\nCatatan: {$request->catatan}";
+    $event->startDateTime = Carbon::parse($request->tglterima)->startOfDay();
+    $event->endDateTime   = Carbon::parse($request->tglterima)->endOfDay();
+    $googleEvent = $event->save();
+
+    // Update kolom google_event_id di database
+    $surat->update(['google_event_id' => $googleEvent->id]);
+
+    return redirect()->route('suratdisposisi.index')
+        ->with('success', 'Data berhasil ditambahkan & masuk ke Google Calendar');
 }
+
 
 public function generatenmrsurat()
 {
@@ -120,26 +157,40 @@ public function generatenmrsurat()
 
     public function destroy(Suratdisposisi $suratdisposisi)
     {
+        // hapus di Google Calendar
+        if ($suratdisposisi->google_event_id) {
+            $event = Event::find($suratdisposisi->google_event_id);
+            if ($event) {
+                $event->delete();
+            }
+        }
         $suratdisposisi->delete();
         return redirect()->route('suratdisposisi.index')->with('success', 'Data Telah dihapus');
     }
 
     //Surat Masuk
     public function suratMasuk(Request $request)
-    {
-        // Cek apakah ada query search
-        $search = $request->get('search');
+{
+    $search = $request->get('search');
+    $filterPerihal = $request->get('perihal');
 
-        // Ambil data surat disposisi dengan pencarian (jika ada)
-        $suratdisposisi = SuratDisposisi::when($search, function ($query) use ($search) {
-            return $query->where('nmrsurat', 'like', '%' . $search . '%')
-                         ->orWhere('id_mastercabang', 'like', '%' . $search . '%')
-                         ->orWhere('perihal', 'like', '%' . $search . '%');
-        })->paginate(10); // Menampilkan 10 data per halaman
+    $suratdisposisi = SuratDisposisi::when($search, function ($query) use ($search) {
+        return $query->where('nmrsurat', 'like', '%' . $search . '%')
+                     ->orWhere('id_mastercabang', 'like', '%' . $search . '%')
+                     ->orWhere('perihal', 'like', '%' . $search . '%');
+    })
+    ->when($filterPerihal, function ($query) use ($filterPerihal) {
+        return $query->where('perihal', $filterPerihal);
+    })
+    ->paginate(10)
+    ->appends($request->all()); // agar parameter tetap dibawa di pagination
 
-        // Mengirim data ke view
-        return view('suratdisposisi.suratmasuk', compact('suratdisposisi'));
-    }
+    // Jika ingin menampilkan pilihan perihal di filter, ambil distinct perihal juga
+    $perihal = SuratDisposisi::select('perihal')->distinct()->pluck('perihal');
+
+    return view('suratdisposisi.suratmasuk', compact('suratdisposisi', 'perihal'));
+}
+
 
     // Function untuk melakukan verifikasi surat disposisi
     public function updateStatus(Request $request, $id)
@@ -157,7 +208,7 @@ public function generatenmrsurat()
     $suratdisposisi->save();
 
     // Redirect back to the suratmasuk page with a success message
-    return redirect()->route('suratmasuk')->with('success', 'Status surat berhasil diperbarui.');
+    return redirect()->route('suratdisposisi.suratmasuk')->with('success', 'Status surat berhasil diperbarui.');
 }
 
 
